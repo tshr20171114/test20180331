@@ -1,4 +1,4 @@
-ProxyRequests Off
+# ProxyRequests Off
 ProxyPass /yh/ http://www.yahoo.co.jp/
 ProxyPassReverse /yh/ http://www.yahoo.co.jp/
 ProxyMaxForwards 10

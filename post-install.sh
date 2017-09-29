@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "STARTTT"
+
 wget http://delegate.hpcc.jp/anonftp/DeleGate/delegate9.9.13.tar.gz
 tar xfz delegate9.9.13.tar.gz
 cd delegate9.9.13

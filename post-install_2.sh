@@ -2,10 +2,6 @@
 
 set -x
 
-ls -lang
-
-pwd
-
 mkdir delegate
 chmod 777 delegate
 

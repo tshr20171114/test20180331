@@ -3,6 +3,7 @@
 set -x
 
 echo ${PORT}
+export TZ=JST-9
 
 echo "delegate"
 ./delegate/delegated -r -vv -P${PORT} +=./delegate/P8080.conf

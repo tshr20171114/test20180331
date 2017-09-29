@@ -17,6 +17,8 @@ export CXXFLAGS="$CFLAGS"
 
 time make -j8 ADMIN="admin@localhost"
 
+chmod -x src/delegated
+
 ls -lang src/
 
 cp src/delegated /app/delegate/

@@ -32,3 +32,6 @@ cp ./P8080.conf ./delegate/
 chmod 755 ./web-boot.sh
 
 rm -rf delegate9.9.13
+
+zip delegate.zip ./delegate/delegated
+cp delegate.zip www/

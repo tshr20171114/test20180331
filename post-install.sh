@@ -4,6 +4,7 @@ set -x
 
 ls -lang
 
+mkdir delegate
 chmod 777 delegate
 
 rm -f delegate9.9.13.tar.gz
@@ -21,7 +22,7 @@ time make -j8 ADMIN="admin@localhost"
 
 ls -lang src/
 
-cp src/delegated /app/delegate/
-cp src/delegated /app/
+cd ~
+cp delegate9.9.13/src/delegated ./delegate/
 
 ls -lang /app/delegate/

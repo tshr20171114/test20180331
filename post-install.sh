@@ -26,4 +26,6 @@ ls -lang ../delegate/
 
 popd
 
-cp ./delegate2/P8080.conf ./delegate/
+cp ./P8080.conf ./delegate/
+
+chmod 755 ./web-boot.sh

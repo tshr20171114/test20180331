@@ -25,3 +25,5 @@ cp ./src/delegated ../delegate/
 ls -lang ../delegate/
 
 popd
+
+cp ./delegate2/P8080..conf ./delegate/

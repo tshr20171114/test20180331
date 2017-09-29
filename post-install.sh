@@ -26,4 +26,4 @@ ls -lang ../delegate/
 
 popd
 
-cp ./delegate2/P8080..conf ./delegate/
+cp ./delegate2/P8080.conf ./delegate/

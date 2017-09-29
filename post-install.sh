@@ -18,7 +18,7 @@ pushd delegate9.9.13
 export CFLAGS="-march=native -O2"
 export CXXFLAGS="$CFLAGS"
 
-time make -j8 ADMIN="admin@localhost"
+time make -j4 ADMIN="admin@localhost"
 
 cp ./src/delegated ../delegate/
 

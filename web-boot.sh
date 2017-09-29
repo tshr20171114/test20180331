@@ -5,7 +5,7 @@ set -x
 echo ${PORT}
 
 echo "delegate"
-./delegate/delegated -r -P${PORT} +=./delegate/P8080.conf &
+./delegate/delegated -r -P${PORT} +=./delegate/P8080.conf
 
 #echo "apache"
 #vendor/bin/heroku-php-apache2 -C apache_app.conf www

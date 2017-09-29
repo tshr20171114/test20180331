@@ -6,7 +6,7 @@ echo ${PORT}
 export TZ=JST-9
 
 echo "delegate"
-./delegate/delegated -r -f -P${PORT} +=./delegate/P8080.conf
+./delegate/delegated -r -fvv -P${PORT} +=./delegate/P8080.conf
 
 #echo "apache"
 #vendor/bin/heroku-php-apache2 -C apache_app.conf www

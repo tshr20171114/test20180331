@@ -13,4 +13,6 @@ export CXXFLAGS="$CFLAGS"
 
 time make -j8 ADMIN="admin@localhost"
 
+ls -lang src/
+
 cp src/delegated /app/delegate/

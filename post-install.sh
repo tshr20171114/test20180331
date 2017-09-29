@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 chmod 777 delegate
 
 wget http://delegate.hpcc.jp/anonftp/DeleGate/delegate9.9.13.tar.gz

@@ -2,6 +2,8 @@
 
 set -x
 
+echo ${PORT}
+
 #echo "delegate"
 #./delegate/delegated -r +=./delegate/P8080.conf &
 

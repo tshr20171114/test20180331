@@ -15,5 +15,6 @@ chmod 755 ./web-boot.sh
 
 unzip delegate.zip
 
+chmod 777 delegated
 cp delegated ./delegate/
 

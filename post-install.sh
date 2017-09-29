@@ -18,11 +18,11 @@ export CXXFLAGS="$CFLAGS"
 
 time make -j8 ADMIN="admin@localhost"
 
-# chmod -x src/delegated
-
 ls -lang src/
 
 cd ~
+ls -lang
+ls -lang delegate9.9.13/src/
 cp delegate9.9.13/src/delegated ./delegate/
 
 ls -lang /app/delegate/

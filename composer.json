@@ -6,6 +6,6 @@
   ,
   "scripts":
   {
-    "post-install-cmd" : "bash ./post-install.sh"
+    "post-install-cmd" : "bash ./post-install_2.sh"
   }
 }

@@ -13,6 +13,7 @@ chmod 777 delegate/tmp
 
 cp ./delegate.conf ./delegate/
 cp ./filter.txt ./delegate/
+cp ./filter.php ./delegate/
 
 chmod 755 ./web-boot.sh
 

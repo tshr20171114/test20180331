@@ -1,2 +1,3 @@
 s/<TITLE>/<HTML><HEAD><META HTTP-EQUIV="REFRESH" CONTENT="600"><TITLE>/g
 s/<\/TITLE>/<\/TITLE><\/HEAD>/g
+s/<FORM ACTION="..\/-search" METHOD=GET>.+?<\/FORM>//g

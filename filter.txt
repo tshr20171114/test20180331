@@ -1,1 +1,1 @@
-s/icons\/ysato/icons/g
+s/icons.ysato/icons/g

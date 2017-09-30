@@ -7,6 +7,7 @@ chmod 777 delegate
 touch ./delegate/index.html
 
 cp ./delegate.conf ./delegate/
+cp ./filter.txt ./delegate/
 
 chmod 755 ./web-boot.sh
 

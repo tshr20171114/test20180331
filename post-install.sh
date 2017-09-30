@@ -2,10 +2,6 @@
 
 set -x
 
-ls -lang
-
-pwd
-
 mkdir delegate
 chmod 777 delegate
 
@@ -33,5 +29,5 @@ chmod 755 ./web-boot.sh
 
 rm -rf delegate9.9.13
 
-zip delegate.zip ./delegate/delegated
-cp delegate.zip www/
+# zip delegate.zip ./delegate/delegated
+# cp delegate.zip www/

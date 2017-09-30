@@ -4,7 +4,9 @@ set -x
 
 mkdir delegate
 chmod 777 delegate
-touch ./delegate/index.html
+
+mkdir -p delegate/tmp
+chmod 777 delegate/tmp
 
 cp ./delegate.conf ./delegate/
 cp ./filter.txt ./delegate/

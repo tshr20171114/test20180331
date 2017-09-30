@@ -5,7 +5,7 @@ set -x
 mkdir delegate
 chmod 777 delegate
 
-cp ./P8080.conf ./delegate/
+cp ./delegate.conf ./delegate/
 
 chmod 755 ./web-boot.sh
 

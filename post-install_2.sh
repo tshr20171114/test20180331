@@ -19,3 +19,9 @@ rm delegate.zip
 chmod 777 delegated
 cp delegated ./delegate/
 
+
+rm -f delegate9.9.13.tar.gz
+wget http://delegate.hpcc.jp/anonftp/DeleGate/delegate9.9.13.tar.gz
+rm -rf delegate9.9.13
+tar xfz delegate9.9.13.tar.gz
+rm -f delegate9.9.13.tar.gz

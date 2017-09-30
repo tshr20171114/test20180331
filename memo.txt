@@ -1,1 +1,0 @@
-https://github.com/heroku/heroku-buildpack-php/blob/master/conf/apache2/heroku.conf

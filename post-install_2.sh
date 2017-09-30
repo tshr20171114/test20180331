@@ -30,7 +30,7 @@ rm -f delegate9.9.13.tar.gz
 cp ./delegate9.9.13/src/builtin/icons/ysato/*.gif ./delegate/icons/
 rm -rf delegate9.9.13
 
-for file in `ls ./delegate/icons/`;
+for file in `ls ./delegate/icons/*.gif`;
 do
-  echo ${file}
+  convert ${file} -geometry 12x12 -colors 2 ${file}
 done

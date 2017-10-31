@@ -1,4 +1,9 @@
 {
+  "require":
+  {
+    "php": ">=7.1.0"
+  }
+  ,
   "require-dev":
   {
     "heroku/heroku-buildpack-php": "*"
@@ -6,6 +11,6 @@
   ,
   "scripts":
   {
-    "post-install-cmd" : "bash ./post-install.sh"
+    "post-install-cmd" : "bash ./post_install.sh"
   }
 }

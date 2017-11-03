@@ -14,10 +14,10 @@ $context = array(
 
 $res = file_get_contents($url, false, stream_context_create($context));
 
-echo $res . "\n";
+echo $res . "\n\n";
 
 $data = json_decode($res, true);
-echo $data['id'] . "\n";
+echo $data['id'] . "\n\n";
 
 $url = 'https://api.heroku.com/accounts/' . $data['id'] . "/actions/get-quota";
 
@@ -33,5 +33,10 @@ $context = array(
 
 $res = file_get_contents($url, false, stream_context_create($context));
 
-echo $res . "\n";
+echo $res . "\n\n";
+
+$data = json_decode($res, true);
+echo $data['quota_used'] . "\n\n";
+echo $data['account_quota'] . "\n\n";
+
 ?>

@@ -102,8 +102,7 @@
 	// Note: This will simply hide other databases in the list - this does
 	// not in any way prevent your users from seeing other database by
 	// other means. (e.g. Run 'SELECT * FROM pg_database' in the SQL area.)
-	//$conf['owned_only'] = false;
-	$conf['owned_only'] = true;
+	$conf['owned_only'] = false;
 
 	// Display comments on objects?  Comments are a good way of documenting
 	// a database, but they do take up space in the interface.

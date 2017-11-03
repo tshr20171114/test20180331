@@ -15,4 +15,9 @@ $context = array(
 $res = file_get_contents($url, false, stream_context_create($context));
 
 echo $res;
+echo "\n";
+
+$data = json_decode($res);
+echo $data['id'];
+
 ?>

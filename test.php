@@ -17,7 +17,7 @@ $res = file_get_contents($url, false, stream_context_create($context));
 echo $res;
 echo "\n";
 
-$data = json_decode($res);
+$data = json_decode($res, true);
 echo $data['id'];
 
 ?>

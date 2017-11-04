@@ -16,5 +16,5 @@ echo $info['username'] . "\n\n";
 echo $info['pass'] . "\n\n";
 */
 
-echo $info['host'] . ':' . $info['port'] . ':' . $info['path'] . ':' . $info['user'] . ':' . $info['pass'];
+echo $info['host'] . ':' . $info['port'] . ':' . substr($info['path'], 1) . ':' . $info['user'] . ':' . $info['pass'];
 ?>

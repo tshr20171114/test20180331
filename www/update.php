@@ -60,7 +60,7 @@ foreach ($api_keys as $api_key)
   
   $data = json_decode($response, true);
   
-  $url = 'https://api.heroku.com/accounts/' . $data['id'] . "/actions/get-quota";
+  $url = 'https://api.heroku.com/accounts/' . $data['id'] . '/actions/get-quota';
   
   $context = array(
     "http" => array(

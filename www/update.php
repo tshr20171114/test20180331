@@ -2,6 +2,8 @@
 
 // ★トリガで履歴作成
 
+error_log('***** START *****');
+
 header("Content-type: text/plain");
 
 $connection_info = parse_url(getenv('DATABASE_URL'));
@@ -74,4 +76,6 @@ foreach ($api_keys as $api_key)
   $pdo = null;
 }
 echo "check point 020";
+
+error_log('***** FINISH *****');
 ?>

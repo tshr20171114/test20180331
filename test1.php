@@ -11,7 +11,9 @@ $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 $sql = 'SELECT Fqdn FROM M_Appliction';
 
 $result = $pdo->query($sql);
-  
+
+var_dump($result);
+
 foreach ($result as $row)
 {
   echo convert_enc($row['Fqdn']) . "\n";

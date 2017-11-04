@@ -85,7 +85,6 @@ $statement = $pdo->prepare($sql);
 
 foreach ($api_keys as $api_key)
 {
-  error_log('***** CHECK POINT 100 *****');
   $url = 'https://api.heroku.com/account';
   $context = array(
     'http' => array(

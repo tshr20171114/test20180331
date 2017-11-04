@@ -8,7 +8,7 @@ echo $dsn . "\n";
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT "FQDN" FROM "M_Application"';
+$sql = 'SELECT "Fqdn" FROM "M_Application"';
 
 $result = $pdo->query($sql);
 

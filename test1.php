@@ -13,7 +13,7 @@ foreach ($pdo->query($sql) as $row)
 {
   $api_keys[] = $row['api_key'];
 }
-
+var_dump($api_keys);
 $pdo = null;
 
 foreach ($api_keys as $api_key)
@@ -29,6 +29,7 @@ foreach ($api_keys as $api_key)
     )
   );
   $response = file_get_contents($url, false, stream_context_create($context));
+  var_dump($response);
   
   $data = json_decode($response, true);
   

@@ -1,6 +1,5 @@
 <?php
 
-// ★直近で更新されていたら処理しない
 // ★トリガで履歴作成
 
 $connection_info = parse_url(getenv('DATABASE_URL'));

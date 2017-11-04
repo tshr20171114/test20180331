@@ -24,6 +24,7 @@ $pdo = null;
 if (count($api_keys) === 0)
 {
   echo "check point 010";
+  error_log('***** START (ABORT) *****');
   exit();
 }
 

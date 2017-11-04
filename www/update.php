@@ -4,6 +4,8 @@
 
 error_log('***** START *****');
 
+$url_loggly = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $_SERVER['SERVER_NAME'] . '/';
+
 header("Content-type: text/plain");
 
 $connection_info = parse_url(getenv('DATABASE_URL'));
@@ -12,7 +14,12 @@ $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($conn
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = "SELECT M1.api_key FROM m_application M1 WHERE M1.update_time < localtimestamp - interval '30 minutes'";
+$sql = <<< __HEREDOC__
+SELECT M1.api_key
+  FROM m_application M1
+ WHERE M1.update_time < localtimestamp - interval '30 minutes'
+ ORDER BY M1.api_key
+__HEREDOC__;
 
 $api_keys = array();
 foreach ($pdo->query($sql) as $row)
@@ -27,8 +34,13 @@ if (count($api_keys) === 0)
   error_log('***** START (ABORT) *****');
   exit();
 }
-  
-$sql = 'UPDATE m_application SET dyno_used = :b_dyno_used, dyno_quota = :b_dyno_quota where api_key = :b_api_key';
+
+$sql = <<< __HEREDOC__
+UPDATE m_application
+   SET dyno_used = :b_dyno_used
+      ,dyno_quota = :b_dyno_quota
+ WHERE api_key = :b_api_key
+__HEREDOC__;
 $statement = $pdo->prepare($sql);
 
 foreach ($api_keys as $api_key)

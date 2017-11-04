@@ -21,4 +21,15 @@ CREATE TABLE t_quota_history (
     fqdn character varying(255) NOT NULL
 );
 
+CREATE FUNCTION set_update_time() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$begin
+  new.update_time := 'now';
+
+  INSERT INTO t_quota_history (quota_previous, quota_current, fqdn)
+  SELECT T1.dyno_used, new.dyno_used, T1.fqdn FROM m_application T1 WHERE T1.api_key = old.api_key;
+
+  return new;
+end;
+
 CREATE TRIGGER update_trigger BEFORE UPDATE ON m_application FOR EACH ROW EXECUTE PROCEDURE set_update_time();

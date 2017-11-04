@@ -6,7 +6,7 @@ error_log('***** START *****');
 
 $url_loggly = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $_SERVER['SERVER_NAME'] . '/';
 
-header("Content-type: text/plain");
+header('Content-type: text/plain');
 
 $connection_info = parse_url(getenv('DATABASE_URL'));
 
@@ -30,7 +30,7 @@ foreach ($pdo->query($sql) as $row)
 if (count($api_keys) === 0)
 {
   $pdo = null;
-  echo "check point 010";
+  echo 'check point 010';
   error_log('***** START (ABORT) *****');
   exit();
 }
@@ -48,11 +48,11 @@ foreach ($api_keys as $api_key)
   error_log('***** CHECK POINT 100 *****');
   $url = 'https://api.heroku.com/account';
   $context = array(
-    "http" => array(
-      "method" => "GET",
-      "header" => array(
-        "Accept: application/vnd.heroku+json; version=3",
-        "Authorization: Bearer " . $api_key
+    'http' => array(
+      'method' => 'GET',
+      'header' => array(
+        'Accept: application/vnd.heroku+json; version=3',
+        'Authorization: Bearer ' . $api_key
       )
     )
   );
@@ -63,11 +63,11 @@ foreach ($api_keys as $api_key)
   $url = 'https://api.heroku.com/accounts/' . $data['id'] . '/actions/get-quota';
   
   $context = array(
-    "http" => array(
-      "method" => "GET",
-      "header" => array(
-        "Accept: application/vnd.heroku+json; version=3.account-quotas",
-        "Authorization: Bearer " . $api_key
+    'http' => array(
+      'method' => 'GET',
+      'header' => array(
+        'Accept: application/vnd.heroku+json; version=3.account-quotas',
+        'Authorization: Bearer ' . $api_key
       )
     )
   );
@@ -86,7 +86,7 @@ foreach ($api_keys as $api_key)
 }
 $pdo = null;
 
-echo "check point 020";
+echo 'check point 020';
 
 error_log('***** FINISH *****');
 ?>

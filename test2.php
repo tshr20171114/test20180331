@@ -7,7 +7,7 @@ $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($conn
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT fqdn FROM m_application ORDER BY CAST(dyno_used as numeric) / CAST(dyno_quota as numeric) LIMIT 1 OFFSET 0';
+$sql = 'SELECT fqdn FROM m_application WHERE select_type = 1 ORDER BY CAST(dyno_used as numeric) / CAST(dyno_quota as numeric) LIMIT 1 OFFSET 0';
 
 foreach ($pdo->query($sql) as $row)
 {

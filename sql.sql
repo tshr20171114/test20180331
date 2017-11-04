@@ -31,5 +31,6 @@ CREATE FUNCTION set_update_time() RETURNS trigger
 
   return new;
 end;
+$$;
 
 CREATE TRIGGER update_trigger BEFORE UPDATE ON m_application FOR EACH ROW EXECUTE PROCEDURE set_update_time();

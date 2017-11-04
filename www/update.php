@@ -4,8 +4,6 @@
 
 error_log('***** START *****');
 
-$url_loggly = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $_SERVER['SERVER_NAME'] . '/';
-
 header('Content-type: text/plain');
 
 $connection_info = parse_url(getenv('DATABASE_URL'));

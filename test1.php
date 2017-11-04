@@ -8,7 +8,7 @@ echo $dsn . "\n";
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT "Fqdn" FROM "M_Application"';
+$sql = 'SELECT fqdn FROM m_application';
 
 $result = $pdo->query($sql);
 
@@ -16,7 +16,7 @@ var_dump($result);
 
 foreach ($result as $row)
 {
-  echo $row['Fqdn'] . "\n";
+  echo $row['fqdn'] . "\n";
 }
 
 $pdo = null;

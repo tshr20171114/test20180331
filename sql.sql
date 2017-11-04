@@ -2,20 +2,20 @@ CREATE TABLE m_application (
     api_key character varying(36) PRIMARY KEY,
     fqdn character varying(255) NOT NULL,
     user_account character varying(255) NOT NULL,
-    dyno_used bigint DEFAULT '-1'::integer NOT NULL,
-    dyno_quota bigint DEFAULT '-1'::integer NOT NULL,
-    update_time timestamp without time zone DEFAULT localtimestamp NOT NULL,
+    dyno_used bigint DEFAULT -1 NOT NULL,
+    dyno_quota bigint DEFAULT -1 NOT NULL,
+    update_time timestamp DEFAULT localtimestamp NOT NULL,
     select_type integer NOT NULL
 );
 
 CREATE TABLE m_access_time (
-    access_time timestamp without time zone NOT NULL
+    access_time timestamp NOT NULL
 );
 INSERT INTO m_access_time VALUES(localtimestamp);
 
 CREATE TABLE t_quota_history (
     history_seq bigserial PRIMARY KEY,
-    update_time timestamp without time zone DEFAULT localtimestamp NOT NULL,
+    update_time timestamp DEFAULT localtimestamp NOT NULL,
     quota_previous bigint NOT NULL,
     quota_current bigint NOT NULL,
     fqdn character varying(255) NOT NULL

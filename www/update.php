@@ -9,7 +9,7 @@ $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($conn
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT api_key FROM m_application';
+$sql = "SELECT M1.api_key FROM m_application M1 WHERE M1.update_time < localtimestamp - interval '30 minutes'";
 
 $api_keys = array();
 foreach ($pdo->query($sql) as $row)
@@ -17,6 +17,11 @@ foreach ($pdo->query($sql) as $row)
   $api_keys[] = $row['api_key'];
 }
 $pdo = null;
+
+if (count($api_keys) === 0)
+{
+  exit();
+}
 
 foreach ($api_keys as $api_key)
 {

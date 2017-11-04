@@ -19,14 +19,17 @@ foreach ($pdo->query($sql) as $row)
 {
   $api_keys[] = $row['api_key'];
 }
-$pdo = null;
 
 if (count($api_keys) === 0)
 {
+  $pdo = null;
   echo "check point 010";
   error_log('***** START (ABORT) *****');
   exit();
 }
+  
+$sql = 'UPDATE m_application SET dyno_used = :b_dyno_used, dyno_quota = :b_dyno_quota where api_key = :b_api_key';
+$statement = $pdo->prepare($sql);
 
 foreach ($api_keys as $api_key)
 {
@@ -62,21 +65,15 @@ foreach ($api_keys as $api_key)
   
   $dyno_used = $data['quota_used'];
   $dyno_quota = $data['account_quota'];
-  
-  $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
-  
-  // $sql = "UPDATE m_application SET dyno_used = " . $dyno_used . ", dyno_quota = " . $dyno_quota . " where api_key = '" . $api_key . "'";
-  // $pdo->exec($sql);
-  $sql = 'UPDATE m_application SET dyno_used = :b_dyno_used, dyno_quota = :b_dyno_quota where api_key = :b_api_key';
-  $statement = $pdo->prepare($sql);
   $statement->execute(
     array(':b_dyno_used' => $dyno_used,
           ':b_dyno_quota' => $dyno_quota,
           ':b_api_key' => $api_key,
          ));
     
-  $pdo = null;
 }
+$pdo = null;
+
 echo "check point 020";
 
 error_log('***** FINISH *****');

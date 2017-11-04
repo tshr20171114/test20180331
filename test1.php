@@ -8,7 +8,7 @@ echo $dsn . "\n";
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT Fqdn FROM M_Application';
+$sql = 'SELECT COUNT(*) CNT FROM M_Application';
 
 $result = $pdo->query($sql);
 
@@ -16,7 +16,7 @@ var_dump($result);
 
 foreach ($result as $row)
 {
-  echo convert_enc($row['Fqdn']) . "\n";
+  echo convert_enc($row['CNT']) . "\n";
 }
 
 $pdo = null;

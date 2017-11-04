@@ -2,6 +2,8 @@
 
 // ★トリガで履歴作成
 
+header("Content-type: text/plain");
+
 $connection_info = parse_url(getenv('DATABASE_URL'));
 
 $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($connection_info['path'], 1));
@@ -19,6 +21,7 @@ $pdo = null;
 
 if (count($api_keys) === 0)
 {
+  echo "check point 010";
   exit();
 }
 
@@ -64,4 +67,5 @@ foreach ($api_keys as $api_key)
   
   $pdo = null;
 }
+echo "check point 020";
 ?>

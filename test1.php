@@ -16,7 +16,7 @@ var_dump($result);
 
 foreach ($result as $row)
 {
-  echo convert_enc($row['Fqdn']) . "\n";
+  echo $row['Fqdn'] . "\n";
 }
 
 $pdo = null;

@@ -64,4 +64,5 @@ foreach ($api_keys as $api_key)
   $pdo = null;
 }
 
+echo "FINISH\n";
 ?>

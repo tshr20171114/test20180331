@@ -1,4 +1,9 @@
 <?php
+
+if (!isset($_GET['p']) || $_GET['p'] === '')
+{
+  exit();
+}
 $path = $_GET["p"];
 
 $connection_info = parse_url(getenv('DATABASE_URL'));

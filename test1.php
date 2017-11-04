@@ -14,6 +14,7 @@ foreach ($pdo->query($sql) as $row)
   $api_keys[] = $row['api_key'];
 }
 var_dump($api_keys);
+echo "\n\n";
 $pdo = null;
 
 foreach ($api_keys as $api_key)
@@ -30,6 +31,7 @@ foreach ($api_keys as $api_key)
   );
   $response = file_get_contents($url, false, stream_context_create($context));
   var_dump($response);
+  echo "\n\n";
   
   $data = json_decode($response, true);
   
@@ -46,7 +48,10 @@ foreach ($api_keys as $api_key)
   );
   
   $response = file_get_contents($url, false, stream_context_create($context));
-  $data = json_decode($res, true);
+  $data = json_decode($response, true);
+  var_dump($response);
+  echo "\n\n";
+  
   $dyno_used = $data['quota_used'];
   $dyno_quota = $data['account_quota'];
   

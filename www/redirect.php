@@ -12,10 +12,11 @@ if ($path !== 'ttrss' && $path !== 'ml')
 }
 
 $connection_info = parse_url(getenv('DATABASE_URL'));
-
 $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($connection_info['path'], 1));
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
+
+// 空更新チェックによる連続取得の禁止
 
 $sql = <<< __HEREDOC__
 UPDATE m_access_time
@@ -25,7 +26,9 @@ __HEREDOC__;
 
 $statement = $pdo->prepare($sql);
 $statement->execute();
-$update_count = $statement->rowCount();
+$update_count = $statement->rowCount(); // 後で使う
+
+// 未使用分が最も少ないサーバにリダイレクト
 
 $sql = <<< __HEREDOC__
 SELECT M1.fqdn
@@ -50,6 +53,8 @@ if ($update_count === 0)
   $pdo = null;
   exit;
 }
+
+// 使用量チェック & 更新
 
 $sql = <<< __HEREDOC__
 SELECT M1.api_key

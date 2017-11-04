@@ -6,7 +6,7 @@ $dsn = sprintf('pgsql:host=%s;dbname=%s', $connection_info['host'], substr($conn
 
 $pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
 
-$sql = 'SELECT T1.Fqdn FROM M_Appliction T1';
+$sql = 'SELECT Fqdn FROM M_Appliction';
 
 foreach ($pdo->query($sql) as $row)
 {

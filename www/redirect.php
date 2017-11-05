@@ -60,6 +60,7 @@ $sql = <<< __HEREDOC__
 SELECT M1.api_key
   FROM m_application M1
  WHERE M1.update_time < localtimestamp - interval '30 minutes'
+   AND M1.update_time < today + interval '21 hours'
  ORDER BY M1.api_key
 __HEREDOC__;
 

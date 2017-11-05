@@ -12,9 +12,11 @@ if ($path !== 'ttrss' && $path !== 'ml')
 }
 
 $connection_info = parse_url(getenv('DATABASE_URL'));
-$dsn = 'pgsql:host=' . $connection_info['host'] . ';dbname=' . substr($connection_info['path'], 1);
 
-$pdo = new PDO($dsn, $connection_info['user'], $connection_info['pass']);
+$pdo = new PDO(
+  'pgsql:host=' . $connection_info['host'] . ';dbname=' . substr($connection_info['path'], 1),
+  $connection_info['user'],
+  $connection_info['pass']);
 
 // 空更新チェックによる連続取得の禁止
 

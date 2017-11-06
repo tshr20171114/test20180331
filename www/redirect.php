@@ -125,7 +125,32 @@ foreach ($api_keys as $api_key)
           ':b_dyno_quota' => $dyno_quota,
           ':b_api_key' => $api_key,
          ));
-
 }
+
+// 報告
+
+$sql = <<< __HEREDOC__
+SELECT M1.fqdn
+      ,M1.dyno_used
+      ,to_char(timestamp, M1.update_time, 'YYYY/MM/DD HH24:MI:SS') update_time
+  FROM m_application M1
+ ORDER BY M1.fqdn
+__HEREDOC__;
+
+$url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/dyno/';
+
+foreach ($pdo->query($sql) as $row)
+{  
+  $context = array(
+    "http" => array(
+      "method" => "POST",
+      "header" => array(
+        "Content-Type: text/plain"
+        ),
+      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used']
+      ));
+  $res = file_get_contents($url, false, stream_context_create($context));
+}
+
 $pdo = null;
 ?>

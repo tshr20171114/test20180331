@@ -30,7 +30,7 @@ $statement = $pdo->prepare($sql);
 $statement->execute();
 $update_count = $statement->rowCount(); // 後で使う
 
-// 未使用分が最も多いサーバにリダイレクト
+// 未使用割合が最も多いサーバにリダイレクト
 
 $sql = <<< __HEREDOC__
 SELECT M1.fqdn

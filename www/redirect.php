@@ -134,8 +134,8 @@ SELECT M1.fqdn
       ,M1.dyno_used
       ,to_char(M1.update_time, 'YYYY/MM/DD HH24:MI:SS') update_time
       ,(M1.dyno_quota - M1.dyno_used) / 86400 d
-      ,(M1.dyno_quota - M1.dyno_used) / 3600 h
-      ,(M1.dyno_quota - M1.dyno_used) / 60 m      
+      ,((M1.dyno_quota - M1.dyno_used) / 3600) % 24 h
+      ,((M1.dyno_quota - M1.dyno_used) / 60) % 60 m
   FROM m_application M1
  ORDER BY M1.fqdn
 __HEREDOC__;

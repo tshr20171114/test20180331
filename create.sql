@@ -9,7 +9,7 @@ CREATE TABLE m_application (
 );
 
 CREATE TABLE m_access_time (
-    access_time timestamp NOT NULL,
+    access_time timestamp NOT NULL
 );
 INSERT INTO m_access_time VALUES(localtimestamp);
 

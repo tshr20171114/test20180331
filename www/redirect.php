@@ -133,6 +133,9 @@ $sql = <<< __HEREDOC__
 SELECT M1.fqdn
       ,M1.dyno_used
       ,to_char(timestamp, M1.update_time, 'YYYY/MM/DD HH24:MI:SS') update_time
+      ,(M1.dyno_quota - M1.dyno_used) / 86400 d
+      ,(M1.dyno_quota - M1.dyno_used) / 3600 h
+      ,(M1.dyno_quota - M1.dyno_used) / 60 m      
   FROM m_application M1
  ORDER BY M1.fqdn
 __HEREDOC__;
@@ -147,7 +150,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used']
+      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m'
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

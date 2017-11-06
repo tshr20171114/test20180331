@@ -27,7 +27,6 @@ CREATE FUNCTION set_update_time() RETURNS trigger
   NEW.update_time := localtimestamp;
 
   INSERT INTO t_quota_history (quota_previous, quota_current, fqdn)
-  -- SELECT T1.dyno_used, new.dyno_used, T1.fqdn FROM m_application T1 WHERE T1.api_key = old.api_key;
   VALUES (OLD.dyno_used, NEW.dyno_used, OLD.fqdn);
 
   return NEW;

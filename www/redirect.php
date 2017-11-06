@@ -63,6 +63,7 @@ SELECT M1.api_key
   FROM m_application M1
  WHERE M1.update_time < localtimestamp - interval '30 minutes'
    AND M1.update_time < current_date + interval '21 hours'
+   AND M1.select_type <> 9
  ORDER BY M1.api_key
 __HEREDOC__;
 

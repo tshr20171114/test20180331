@@ -18,18 +18,6 @@ $pdo = new PDO(
   $connection_info['user'],
   $connection_info['pass']);
 
-// 空更新チェックによる連続取得の禁止
-
-$sql = <<< __HEREDOC__
-UPDATE m_access_time
-   SET access_time = localtimestamp
- WHERE access_time < localtimestamp - interval '30 minutes'
-__HEREDOC__;
-
-$statement = $pdo->prepare($sql);
-$statement->execute();
-$update_count = $statement->rowCount(); // 後で使う
-
 // 未使用割合が最も多いサーバにリダイレクト
 
 $sql = <<< __HEREDOC__
@@ -49,12 +37,6 @@ foreach ($pdo->query($sql) as $row)
 $url = 'https://' . $fqdn . '/' . $path . '/';
 
 header('Location: ' . $url);
-
-if ($update_count === 0)
-{
-  $pdo = null;
-  exit;
-}
 
 // 使用量チェック & 更新
 // 更新は(恐らく)0時から3時までに行われるはず。なのでそれ以外は除外する。

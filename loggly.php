@@ -5,6 +5,7 @@ while ($line = fgets($stdin))
 {
   $array = explode(' ', $line, 4);
   $servername = $array[2];
+  file_put_contents('/app/servername', $servername);
   $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $servername . '/';
   
   $context = array(

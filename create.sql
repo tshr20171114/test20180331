@@ -8,11 +8,6 @@ CREATE TABLE m_application (
     select_type integer NOT NULL
 );
 
-CREATE TABLE m_access_time (
-    access_time timestamp NOT NULL
-);
-INSERT INTO m_access_time VALUES(localtimestamp);
-
 CREATE TABLE t_quota_history (
     history_seq bigserial PRIMARY KEY,
     update_time timestamp DEFAULT localtimestamp NOT NULL,

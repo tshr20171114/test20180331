@@ -57,11 +57,15 @@ if ($update_count === 0)
 }
 
 // 使用量チェック & 更新
+// 更新は(恐らく)0時から3時までに行われるはず。なのでそれ以外は除外する。
 
 $sql = <<< __HEREDOC__
 SELECT M1.api_key
   FROM m_application M1
  WHERE M1.update_time < localtimestamp - interval '30 minutes'
+   AND NOT (    date_trunc('day' ,M1.update_time) = date_trunc('day' ,localtimestamp)
+            AND date_part('hour', M1.update_time) BETWEEN 3 AND 23
+           )
    AND M1.select_type <> 9
  ORDER BY M1.api_key
 __HEREDOC__;

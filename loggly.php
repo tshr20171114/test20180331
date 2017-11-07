@@ -3,8 +3,8 @@ $stdin = fopen('php://stdin', 'r');
 ob_implicit_flush(true);
 while ($line = fgets($stdin))
 {
-  $array = explode(' ', $line, 2);
-  $servername = $array[0];
+  $array = explode(' ', $line, 4);
+  $servername = $array[2];
   $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $servername . '/';
   
   $context = array(

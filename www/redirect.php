@@ -140,5 +140,15 @@ foreach ($pdo->query($sql) as $row)
   $res = file_get_contents($url, false, stream_context_create($context));
 }
 
+$context = array(
+  "http" => array(
+    "method" => "POST",
+    "header" => array(
+      "Content-Type: text/plain"
+      ),
+    "content" => 'MARKER'
+    ));
+$res = file_get_contents($url, false, stream_context_create($context));
+
 $pdo = null;
 ?>

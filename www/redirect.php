@@ -120,7 +120,10 @@ SELECT M1.fqdn
       ,(M1.dyno_quota - M1.dyno_used) / 86400 d
       ,((M1.dyno_quota - M1.dyno_used) / 3600) % 24 h
       ,((M1.dyno_quota - M1.dyno_used) / 60) % 60 m
-      ,CASE M1.update_flag WHEN 1 THEN ' ***** UPDATE *****' ELSE '' END note
+      ,CASE M1.update_flag WHEN 1
+                           THEN ' *** ' || ((M1.dyno_used - M1.dyno_used_previous) / 3600) || 'h '
+                                        || ((M1.dyno_used - M1.dyno_used_previous) / 60) % 60 || 'm ***'
+                           ELSE '' END note
   FROM m_application M1
  ORDER BY M1.fqdn
 __HEREDOC__;

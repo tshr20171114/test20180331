@@ -124,6 +124,7 @@ SELECT M1.fqdn
                            THEN ' *** ' || ((M1.dyno_used - M1.dyno_used_previous) / 3600) || 'h '
                                         || ((M1.dyno_used - M1.dyno_used_previous) / 60) % 60 || 'm ***'
                            ELSE '' END note
+      ,CASE M1.select_type WHEN 1 THEN ' Active' ELSE '' END state
   FROM m_application M1
  ORDER BY M1.fqdn
 __HEREDOC__;
@@ -138,7 +139,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note']
+      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note'] . $['state']
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

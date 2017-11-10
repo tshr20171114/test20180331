@@ -39,15 +39,11 @@ $url = 'https://' . $fqdn . '/' . $path . '/';
 header('Location: ' . $url);
 
 // 使用量チェック & 更新
-// 更新は(恐らく)0時から3時までに行われるはず。なのでそれ以外は除外する。
 
 $sql = <<< __HEREDOC__
 SELECT M1.api_key
   FROM m_application M1
  WHERE M1.update_time < localtimestamp - interval '30 minutes'
-   AND NOT (    date_trunc('day' ,M1.update_time) = date_trunc('day' ,localtimestamp)
-            AND date_part('hour', M1.update_time) BETWEEN 3 AND 23
-           )
    AND M1.select_type <> 9
  ORDER BY M1.api_key
 __HEREDOC__;
@@ -68,6 +64,9 @@ $sql = <<< __HEREDOC__
 UPDATE m_application
    SET dyno_used = :b_dyno_used
       ,dyno_quota = :b_dyno_quota
+      ,dyno_used_previous = CASE dyno_used WHEN :b_dyno_used THEN dyno_used_previous ELSE dyno_used END
+      ,update_flag = CASE dyno_used WHEN :b_dyno_used THEN 0 ELSE 1 END
+      ,change_time = CASE dyno_used WHEN :b_dyno_used THEN change_time ELSE localtimestamp END
  WHERE api_key = :b_api_key
 __HEREDOC__;
 $statement = $pdo->prepare($sql);
@@ -121,6 +120,7 @@ SELECT M1.fqdn
       ,(M1.dyno_quota - M1.dyno_used) / 86400 d
       ,((M1.dyno_quota - M1.dyno_used) / 3600) % 24 h
       ,((M1.dyno_quota - M1.dyno_used) / 60) % 60 m
+      ,CASE M1.update_flag WHEN 1 THEN ' ***** UPDATE *****' ELSE '' END note
   FROM m_application M1
  ORDER BY M1.fqdn
 __HEREDOC__;
@@ -135,7 +135,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m'
+      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note']
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

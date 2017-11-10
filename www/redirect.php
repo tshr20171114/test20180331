@@ -117,9 +117,9 @@ $sql = <<< __HEREDOC__
 SELECT M1.fqdn
       ,M1.dyno_used
       ,to_char(M1.update_time, 'YYYY/MM/DD HH24:MI:SS') update_time
-      ,(M1.dyno_quota - M1.dyno_used) / 86400 d
-      ,((M1.dyno_quota - M1.dyno_used) / 3600) % 24 h
-      ,((M1.dyno_quota - M1.dyno_used) / 60) % 60 m
+      ,(M1.dyno_quota - M1.dyno_used) / 86400 || 'd '
+       || ((M1.dyno_quota - M1.dyno_used) / 3600) % 24 || 'h '
+       || ((M1.dyno_quota - M1.dyno_used) / 60) % 60 'm' dhm
       ,CASE M1.update_flag WHEN 1
                            THEN ' *** ' || ((M1.dyno_used - M1.dyno_used_previous) / 3600) || 'h '
                                         || ((M1.dyno_used - M1.dyno_used_previous) / 60) % 60 || 'm ***'
@@ -139,7 +139,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => "${row['fqdn']} ${row['update_time']} ${row['dyno_used']} ${row['d']}d ${row['h']}h ${row['m']}m${row['note']}${row['state']}"
+      "content" => "${row['fqdn']} ${row['update_time']} ${row['dyno_used']} ${row['dhm']}${row['note']}${row['state']}"
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

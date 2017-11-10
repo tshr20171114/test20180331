@@ -139,7 +139,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note'] . $['state']
+      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note'] . $row['state']
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

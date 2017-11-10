@@ -14,7 +14,7 @@ if ($path !== 'ttrss' && $path !== 'ml')
 $connection_info = parse_url(getenv('DATABASE_URL'));
 
 $pdo = new PDO(
-  'pgsql:host=' . $connection_info['host'] . ';dbname=' . substr($connection_info['path'], 1),
+  "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
   $connection_info['user'],
   $connection_info['pass']);
 
@@ -79,7 +79,7 @@ foreach ($api_keys as $api_key)
       'method' => 'GET',
       'header' => array(
         'Accept: application/vnd.heroku+json; version=3',
-        'Authorization: Bearer ' . $api_key
+        'Authorization: Bearer ${api_key}'
       )
     )
   );
@@ -94,7 +94,7 @@ foreach ($api_keys as $api_key)
       'method' => 'GET',
       'header' => array(
         'Accept: application/vnd.heroku+json; version=3.account-quotas',
-        'Authorization: Bearer ' . $api_key
+        'Authorization: Bearer ${api_key}'
       )
     )
   );
@@ -139,7 +139,7 @@ foreach ($pdo->query($sql) as $row)
       "header" => array(
         "Content-Type: text/plain"
         ),
-      "content" => $row['fqdn'] . ' ' . $row['update_time'] . ' ' . $row['dyno_used'] . ' ' . $row['d'] . 'd ' . $row['h'] . 'h ' . $row['m'] .'m' . $row['note'] . $row['state']
+      "content" => "${row['fqdn']} ${row['update_time']} ${row['dyno_used']} ${row['d']}d ${row['h']}h ${row['m']}m${row['note']}${row['state']}"
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }

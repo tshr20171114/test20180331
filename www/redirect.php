@@ -34,9 +34,9 @@ foreach ($pdo->query($sql) as $row)
   $fqdn = $row['fqdn'];
   break;
 }
-$url = 'https://' . $fqdn . '/' . $path . '/';
+$url = "https://${fqdn}/${path}/";
 
-header('Location: ' . $url);
+header("Location: ${url}");
 
 // 使用量チェック & 更新
 
@@ -79,7 +79,7 @@ foreach ($api_keys as $api_key)
       'method' => 'GET',
       'header' => array(
         'Accept: application/vnd.heroku+json; version=3',
-        'Authorization: Bearer ${api_key}'
+        "Authorization: Bearer ${api_key}"
       )
     )
   );
@@ -87,14 +87,14 @@ foreach ($api_keys as $api_key)
 
   $data = json_decode($response, true);
 
-  $url = 'https://api.heroku.com/accounts/' . $data['id'] . '/actions/get-quota';
+  $url = "https://api.heroku.com/accounts/${data['id']}/actions/get-quota";
 
   $context = array(
     'http' => array(
       'method' => 'GET',
       'header' => array(
         'Accept: application/vnd.heroku+json; version=3.account-quotas',
-        'Authorization: Bearer ${api_key}'
+        "Authorization: Bearer ${api_key}"
       )
     )
   );
@@ -134,23 +134,23 @@ $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/dyn
 foreach ($pdo->query($sql) as $row)
 {  
   $context = array(
-    "http" => array(
-      "method" => "POST",
-      "header" => array(
-        "Content-Type: text/plain"
+    'http' => array(
+      'method' => 'POST',
+      'header' => array(
+        'Content-Type: text/plain'
         ),
-      "content" => "${row['fqdn']} ${row['update_time']} ${row['dyno_used']} ${row['dhm']}${row['note']}${row['state']}"
+      'content' => "${row['fqdn']} ${row['update_time']} ${row['dyno_used']} ${row['dhm']}${row['note']}${row['state']}"
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
 }
 
 $context = array(
-  "http" => array(
-    "method" => "POST",
-    "header" => array(
-      "Content-Type: text/plain"
+  'http' => array(
+    'method' => 'POST',
+    'header' => array(
+      'Content-Type: text/plain'
       ),
-    "content" => 'MARKER'
+    'content' => 'MARKER'
     ));
 $res = file_get_contents($url, false, stream_context_create($context));
 

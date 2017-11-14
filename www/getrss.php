@@ -228,9 +228,7 @@ if ($count === 1)
   }
 
   header('Content-Type: application/xml; charset=UTF-8');
-  error_log('***** CHECK POINT AAA BBB *****');
   echo str_replace('__ITEMS__', implode($items), $xml_root_text);
-  error_log('***** CHECK POINT AAA CCC *****');
   $pdo = null;
   exit();
 }

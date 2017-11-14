@@ -153,8 +153,10 @@ do switch (curl_multi_select($mh, 10))
     {
       $info = curl_getinfo($raised['handle']);
       $query_string = parse_url($info[url], PHP_URL_QUERY);
+      $req_url = $info[url];
       $response = curl_multi_getcontent($raised['handle']);
       error_log("${pid} ${query_string} " . strlen($response));
+      error_log("${pid} ${req_url} " . strlen($response));
       //error_log($response);
       f_parse($response);
       curl_multi_remove_handle($mh, $raised['handle']);

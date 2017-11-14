@@ -148,8 +148,6 @@ foreach($urls as $url)
   curl_multi_add_handle($mh, $ch);
 }
 
-error_log("${pid} CHECK POINT 0100");
-
 do
 {
   $stat = curl_multi_exec($mh, $running);

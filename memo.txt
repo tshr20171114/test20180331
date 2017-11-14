@@ -1,3 +1,1 @@
-load balancer may be
-
 LOGGLY_TOKEN

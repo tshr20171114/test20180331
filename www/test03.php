@@ -79,6 +79,8 @@ __HEREDOC__;
   return;
 }
 
+$start_time = time();
+
 $max_count = getenv('MAX_COUNT');
 $per_count = getenv('PER_COUNT');
 
@@ -158,5 +160,5 @@ curl_multi_close($mh);
 
 error_log("${pid} FINISH ${count}");
 
-echo '<HTML><HEAD><TITLE>' . time() . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
 ?>

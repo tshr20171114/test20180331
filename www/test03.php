@@ -87,18 +87,6 @@ __HEREDOC__;
 
 $start_time = time();
 
-/*
-$connection_info = parse_url(getenv('DATABASE_URL'));
-$pdo = new PDO(
-  "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
-  $connection_info['user'],
-  $connection_info['pass']);
-
-$pdo->exec('TRUNCATE TABLE t_test');
-
-$pdo = null;
-*/
-
 $max_count = getenv('MAX_COUNT');
 $per_count = getenv('PER_COUNT');
 
@@ -117,6 +105,16 @@ if ($count > $max_count)
   error_log("${pid} FINISH ${count}");
   return;
 }
+
+$connection_info = parse_url(getenv('DATABASE_URL'));
+$pdo = new PDO(
+  "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
+  $connection_info['user'],
+  $connection_info['pass']);
+
+$pdo->exec('TRUNCATE TABLE t_test');
+
+$pdo = null;
 
 $urls = array();
 for($i = 0; $i < $per_count; $i++)

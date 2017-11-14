@@ -236,6 +236,18 @@ if ($count === 1)
   header('Content-Type: application/xml; charset=UTF-8');
   echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
   $pdo = null;
+  
+  $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/item_count/';
+  $context = array(
+    'http' => array(
+      'method' => 'POST',
+      'header' => array(
+        'Content-Type: text/plain'
+        ),
+      'content' => count($items)
+      ));
+  $res = file_get_contents($url, false, stream_context_create($context));
+  
   exit();
 }
 else

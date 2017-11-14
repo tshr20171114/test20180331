@@ -65,7 +65,7 @@ __HEREDOC__;
     }
     $href = 'http://' . $host_ . $matches[1];
         
-    $rc = preg_match('/<h3><.+?>(.+?)<\/a>/', $one_record, $matches);
+    $rc = preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches);
     if ($rc == 0)
     {
       continue;
@@ -73,6 +73,7 @@ __HEREDOC__;
     $title = $matches[1];
         
     //error_log("${time} ${title} ${href} ${thumbnail}");
+    error_log("${time} ${title}");
     
     $statement->execute(
       array(':b_uri' => $href,

@@ -1,3 +1,4 @@
 <?php
-echo file_get_contents(getenv('RSS_URL'));
+$url = getenv('RSS_URL');
+echo file_get_contents($url);
 ?>

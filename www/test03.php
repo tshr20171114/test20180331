@@ -224,7 +224,7 @@ if ($count === 1)
     $title = $row['title'];
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
-    $items[] = "<item><title>${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${time}</description><pubDate></pubDate></item>';
+    $items[] = "<item><title>${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${time}</description><pubDate></pubDate></item>";
   }
 
   echo str_replace('__ITEMS__', implode($items), $xml_root_text);

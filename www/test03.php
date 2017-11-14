@@ -13,8 +13,8 @@ function f_parse($html)
     $connection_info['pass']);
 
   $sql = <<< __HEREDOC__
-INSERT INTO t_test
-( uri, content ) VALUES ( :b_uri, :b_content )
+INSERT INTO t_contents
+( uri, title, thumbnail, time ) VALUES ( :b_uri, :b_title, :b_thumbnail, :b_time )
 __HEREDOC__;
   $statement = $pdo->prepare($sql);
   
@@ -78,6 +78,12 @@ __HEREDOC__;
       array(':b_uri' => $href,
             ':b_content' => "${time} ${title} ${href} ${thumbnail}"
            ));
+    $statement->execute(
+      array(':b_uri' => $href,
+            ':b_title' => $title,
+            ':b_thumbnail' => $thumbnail,
+            ':b_time' => $time
+           ));
   }
   
   $pdo = null;
@@ -114,7 +120,7 @@ if ($count === 1)
     $connection_info['user'],
     $connection_info['pass']);
 
-  $pdo->exec('TRUNCATE TABLE t_test');
+  $pdo->exec('TRUNCATE TABLE t_contents');
 
   $pdo = null;
 }
@@ -179,5 +185,12 @@ curl_multi_close($mh);
 
 error_log("${pid} FINISH ${count}");
 
-echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+if ($count === 1)
+{
+  echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+}
+else
+{
+  echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+}
 ?>

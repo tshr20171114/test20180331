@@ -194,6 +194,19 @@ SELECT T1.uri
          ,T1.create_time
 __HEREDOC__;
 
+$xml_root_text = <<< __HEREDOC__
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>db</title>
+    <link>http://www.yahoo.co.jp</link>
+    <description>none</description>
+    <language>ja</language>
+    {0}
+  </channel>
+</rss>
+__HEREDOC__;
+
 if ($count === 1)
 {
   echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
@@ -204,7 +217,11 @@ if ($count === 1)
     $connection_info['user'],
     $connection_info['pass']);
 
-  $pdo->exec('TRUNCATE TABLE t_contents');
+  foreach ($pdo->query($sql) as $row)
+  {
+    echo $row['time'];
+    break;
+  }
 
   $pdo = null;
 }

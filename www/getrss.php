@@ -244,7 +244,7 @@ if ($count === 1)
       'header' => array(
         'Content-Type: text/plain'
         ),
-      'content' => count($items)
+      'content' => 'items : ' . count($items)
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
   error_log($res);

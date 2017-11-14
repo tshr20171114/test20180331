@@ -190,8 +190,8 @@ SELECT T1.uri
       ,T1.thumbnail
       ,T1.time
   FROM t_contents T1
- ORDER BY CAST(T1.page AS integer)
-         ,T1.create_time
+ ORDER BY CAST(T1.page AS integer) DESC
+         ,T1.create_time DESC
 __HEREDOC__;
 
 $xml_root_text = <<< __HEREDOC__

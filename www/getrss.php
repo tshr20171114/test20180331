@@ -29,22 +29,35 @@ __HEREDOC__;
   {
     $words_ng[] = $row['word'];
   }
+  
+  $sql = <<< __HEREDOC__
+SELECT M1.word
+  FROM m_words M1
+ WHERE M1.type = 1
+__HEREDOC__;
+  
+  $words_ok = array();
+  foreach ($pdo->query($sql) as $row)
+  {
+    $words_ok[] = $row['word'];
+  }
     
   foreach(explode('<!--/video_list_renew-->', $buf) as $one_record)
   {
     foreach($words_ng as $word)
     {
-      $pos = strpos($one_record, $word);
-      if ($pos !== false)
+      if (strpos($one_record, $word) !== false)
       {
         continue 2;
       }
     }
  
-    $pos = strpos($one_record, '全員');
-    if ($pos === false)
+    foreach($words_ok as $word)
     {
-      continue;
+      if (strpos($one_record, $word) === false)
+      {
+        continue 2;
+      }
     }
     
     $rc = preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches);

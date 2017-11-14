@@ -188,8 +188,6 @@ do switch (curl_multi_select($mh, 10))
 
 curl_multi_close($mh);
 
-error_log("${pid} FINISH ${count}");
-
 $sql = <<< __HEREDOC__
 SELECT T1.uri
       ,T1.title
@@ -230,13 +228,15 @@ if ($count === 1)
     $title = $row['title'];
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
-    $items[] = "<item><title>${time} ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate></pubDate></item>";
+    $tag = explode('/', $uri)[5];
+    $items[] = "<item><title>${time} ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${tag}</description><pubDate></pubDate></item>";
   }
 
   header('Content-Type: application/xml; charset=UTF-8');
   echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
   $pdo = null;
   
+  error_log('items : ' . count($items));
   $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/item_count/';
   $context = array(
     'http' => array(
@@ -247,11 +247,11 @@ if ($count === 1)
       'content' => count($items)
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
-  
-  exit();
 }
 else
 {
   echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
 }
+
+error_log("${pid} FINISH ${count}");
 ?>

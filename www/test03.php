@@ -1,6 +1,6 @@
 <?php
 
-function f_parse($html_, $host_, $base_uri_)
+function f_parse($html_, $host_, $page_)
 {
   $buf = $html_;
   $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
@@ -14,7 +14,7 @@ function f_parse($html_, $host_, $base_uri_)
 
   $sql = <<< __HEREDOC__
 INSERT INTO t_contents
-( uri, title, thumbnail, time, base_uri ) VALUES ( :b_uri, :b_title, :b_thumbnail, :b_time, :b_base_uri )
+( uri, title, thumbnail, time, page ) VALUES ( :b_uri, :b_title, :b_thumbnail, :b_time, :b_page )
 __HEREDOC__;
   $statement = $pdo->prepare($sql);
   
@@ -80,7 +80,7 @@ __HEREDOC__;
             ':b_title' => $title,
             ':b_thumbnail' => $thumbnail,
             ':b_time' => $time,
-            ':b_base_uri' => $base_uri_
+            ':b_page' => $page_
            ));
   }
   
@@ -169,12 +169,12 @@ do switch (curl_multi_select($mh, 10))
     do if ($raised = curl_multi_info_read($mh, $remains))
     {
       $info = curl_getinfo($raised['handle']);
-      $query_string = parse_url($info[url], PHP_URL_QUERY);
+      $page = expload('=', parse_url($info[url], PHP_URL_QUERY), 2)[1];
       $host = parse_url($info[url], PHP_URL_HOST);
       $response = curl_multi_getcontent($raised['handle']);
       //error_log("${pid} ${query_string} " . strlen($response));
       //error_log($response);
-      f_parse($response, $host, $info[url]);
+      f_parse($response, $host, $page);
       curl_multi_remove_handle($mh, $raised['handle']);
       curl_close($raised['handle']);
     } while ($remains);

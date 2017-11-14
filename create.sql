@@ -8,4 +8,8 @@ CREATE TABLE t_contents
  page character varying(6) NOT NULL
 );
 
-
+CREATE TABLE m_words
+(
+ word character varying(256) NOT NULL PRIMARY KEY,
+ type integer
+);

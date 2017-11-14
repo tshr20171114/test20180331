@@ -11,5 +11,5 @@ CREATE TABLE t_contents
 CREATE TABLE m_words
 (
  word character varying(256) NOT NULL PRIMARY KEY,
- type integer
+ type integer NOT NULL
 );

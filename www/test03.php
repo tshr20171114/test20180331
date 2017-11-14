@@ -6,6 +6,18 @@ function f_parse($html)
   $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
   $buf = explode('<div id="video_list_2column" style="display:none;">', $buf, 2)[0];
  
+  $connection_info = parse_url(getenv('DATABASE_URL'));
+  $pdo = new PDO(
+    "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
+    $connection_info['user'],
+    $connection_info['pass']);
+
+  $sql = <<< __HEREDOC__
+INSERT INTO t_test
+( uri, content ) VALUES ( :b_uri, :b_content )
+__HEREDOC__;
+  $statement = $pdo->prepare($sql);
+  
   foreach(explode('<!--/video_list_renew-->', $buf) as $one_record)
   {
     $pos = strpos($one_record, 'コンテンツマーケット');
@@ -55,7 +67,14 @@ function f_parse($html)
     $title = $matches[1];
         
     error_log("${time} ${title} ${href} ${thumbnail}");
+    
+    $statement->execute(
+      array(':b_uri' => $href,
+            ':b_content' => "${time} ${title} ${href} ${thumbnail}"
+           ));
   }
+  
+  $pdo = null;
   
   return;
 }

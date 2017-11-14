@@ -158,5 +158,5 @@ curl_multi_close($mh);
 
 error_log("${pid} FINISH ${count}");
 
-echo '<HTML><BODY>...</BODY></HTML>';
+echo '<HTML><BODY>' . time() . '</BODY></HTML>';
 ?>

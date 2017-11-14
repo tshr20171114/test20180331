@@ -143,7 +143,8 @@ foreach($urls as $url)
   $ch = curl_init();
   curl_setopt_array($ch, array(
     CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_USERAGENT => parse_url($url, PHP_URL_QUERY)
     ));
   curl_multi_add_handle($mh, $ch);
 }

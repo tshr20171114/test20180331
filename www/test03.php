@@ -228,7 +228,7 @@ if ($count === 1)
   }
 
   header('Content-Type: application/xml; charset=UTF-8');
-  echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
+  echo str_replace('__ITEMS__', implode($items), $xml_root_text);
   $pdo = null;
 }
 else

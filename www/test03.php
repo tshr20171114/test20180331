@@ -184,9 +184,29 @@ curl_multi_close($mh);
 
 error_log("${pid} FINISH ${count}");
 
+$sql = <<< __HEREDOC__
+SELECT T1.uri
+      ,T1.title
+      ,T1.thumbnail
+      ,T1.time
+  FROM t_contents T1
+ ORDER BY CAST(T1.page AS integer)
+         ,T1.create_time
+__HEREDOC__;
+
 if ($count === 1)
 {
   echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+  
+  $connection_info = parse_url(getenv('DATABASE_URL'));
+  $pdo = new PDO(
+    "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
+    $connection_info['user'],
+    $connection_info['pass']);
+
+  $pdo->exec('TRUNCATE TABLE t_contents');
+
+  $pdo = null;
 }
 else
 {

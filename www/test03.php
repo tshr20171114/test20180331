@@ -106,15 +106,18 @@ if ($count > $max_count)
   return;
 }
 
-$connection_info = parse_url(getenv('DATABASE_URL'));
-$pdo = new PDO(
-  "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
-  $connection_info['user'],
-  $connection_info['pass']);
+if ($count === 1)
+{
+  $connection_info = parse_url(getenv('DATABASE_URL'));
+  $pdo = new PDO(
+    "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
+    $connection_info['user'],
+    $connection_info['pass']);
 
-$pdo->exec('TRUNCATE TABLE t_test');
+  $pdo->exec('TRUNCATE TABLE t_test');
 
-$pdo = null;
+  $pdo = null;
+}
 
 $urls = array();
 for($i = 0; $i < $per_count; $i++)

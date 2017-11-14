@@ -224,7 +224,7 @@ if ($count === 1)
     $title = $row['title'];
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
-    $items[] = "<item><title>${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${time}</description><pubDate></pubDate></item>";
+    $items[] = "<item><title>${time} ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate></pubDate></item>";
   }
 
   header('Content-Type: application/xml; charset=UTF-8');

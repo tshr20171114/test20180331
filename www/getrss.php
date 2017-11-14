@@ -51,6 +51,12 @@ __HEREDOC__;
       continue;
     }
     
+    $rc = preg_match('/2[01]:/', $time, $matches);
+    if ($rc == 1)
+    {
+      continue;
+    }
+    
     $rc = preg_match('/<img src="(.+?)\?/', $one_record, $matches);
     if ($rc == 0)
     {

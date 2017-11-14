@@ -227,7 +227,8 @@ if ($count === 1)
     $items[] = "<item><title>${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${time}</description><pubDate></pubDate></item>";
   }
 
-  echo str_replace('__ITEMS__', implode($items), $xml_root_text);
+  header('Content-Type: application/xml; charset=UTF-8');
+  echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
   $pdo = null;
 }
 else

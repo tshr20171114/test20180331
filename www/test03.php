@@ -73,7 +73,7 @@ __HEREDOC__;
     $title = $matches[1];
         
     //error_log("${time} ${title} ${href} ${thumbnail}");
-    error_log("${time} ${title}");
+    error_log("${href} ${title}");
     
     $statement->execute(
       array(':b_uri' => $href,

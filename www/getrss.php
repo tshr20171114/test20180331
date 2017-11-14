@@ -247,6 +247,7 @@ if ($count === 1)
       'content' => count($items)
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
+  error_log($res);
 }
 else
 {

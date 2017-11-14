@@ -18,12 +18,27 @@ INSERT INTO t_contents
 __HEREDOC__;
   $statement = $pdo->prepare($sql);
   
+  $sql = <<< __HEREDOC__
+SELECT M1.word
+  FROM m_words M1
+ WHERE M1.type = 2
+__HEREDOC__;
+  
+  $words_ng = array();
+  foreach ($pdo->query($sql) as $row)
+  {
+    $words_ng[] = $row['word'];
+  }
+    
   foreach(explode('<!--/video_list_renew-->', $buf) as $one_record)
   {
-    $pos = strpos($one_record, 'コンテンツマーケット');
-    if ($pos !== false)
+    foreach($words_ng as $word)
     {
-      continue;
+      $pos = strpos($one_record, $word);
+      if ($pos !== false)
+      {
+        continue 2;
+      }
     }
  
     $pos = strpos($one_record, '全員');
@@ -211,9 +226,7 @@ $xml_root_text = <<< __HEREDOC__
 __HEREDOC__;
 
 if ($count === 1)
-{
-  //echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
-  
+{  
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
     "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),

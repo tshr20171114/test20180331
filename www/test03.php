@@ -72,7 +72,7 @@ __HEREDOC__;
     }
     $title = $matches[1];
         
-    error_log("${time} ${title} ${href} ${thumbnail}");
+    //error_log("${time} ${title} ${href} ${thumbnail}");
     
     $statement->execute(
       array(':b_uri' => $href,
@@ -171,7 +171,7 @@ do switch (curl_multi_select($mh, 10))
       $query_string = parse_url($info[url], PHP_URL_QUERY);
       $host = parse_url($info[url], PHP_URL_HOST);
       $response = curl_multi_getcontent($raised['handle']);
-      error_log("${pid} ${query_string} " . strlen($response));
+      //error_log("${pid} ${query_string} " . strlen($response));
       //error_log($response);
       f_parse($response, $host, $info[url]);
       curl_multi_remove_handle($mh, $raised['handle']);

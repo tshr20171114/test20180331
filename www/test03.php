@@ -202,14 +202,14 @@ $xml_root_text = <<< __HEREDOC__
     <link>http://www.yahoo.co.jp</link>
     <description>none</description>
     <language>ja</language>
-    {0}
+    __ITEMS__
   </channel>
 </rss>
 __HEREDOC__;
 
 if ($count === 1)
 {
-  echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
+  //echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
   
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
@@ -217,12 +217,17 @@ if ($count === 1)
     $connection_info['user'],
     $connection_info['pass']);
 
+  $items = array();
   foreach ($pdo->query($sql) as $row)
   {
-    echo $row['time'];
-    break;
+    $uri = $row['uri'];
+    $title = $row['title'];
+    $thumbnail = $row['thumbnail'];
+    $time = $row['time'];
+    $items[] = "<item><title>${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${time}</description><pubDate></pubDate></item>';
   }
 
+  echo str_replace('__ITEMS__', implode($items), $xml_root_text);
   $pdo = null;
 }
 else

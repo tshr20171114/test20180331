@@ -60,47 +60,40 @@ __HEREDOC__;
       }
     }
     
-    $rc = preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches);
-    if ($rc == 0)
+    if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0)
     {
       continue;
     }
     $time = $matches[1];
     
-    $rc = preg_match('/0.:/', $time, $matches);
-    if ($rc == 1)
+    if (preg_match('/0.:/', $time, $matches) == 1)
     {
       continue;
     }
     
-    $rc = preg_match('/1[012]:/', $time, $matches);
-    if ($rc == 1)
+    if (preg_match('/1[012]:/', $time, $matches) == 1)
     {
       continue;
     }
     
-    $rc = preg_match('/2[01]:/', $time, $matches);
-    if ($rc == 1)
+    if (preg_match('/2[01]:/', $time, $matches) == 1)
     {
       continue;
     }
     
-    $rc = preg_match('/<img src="(.+?)\?/', $one_record, $matches);
-    if ($rc == 0)
+    if (preg_match('/<img src="(.+?)\?/', $one_record, $matches) == 0)
     {
       continue;
     }
     $thumbnail = $matches[1];
         
-    $rc = preg_match('/<a href="(.+?)"/', $one_record, $matches);
-    if ($rc == 0)
+    if (preg_match('/<a href="(.+?)"/', $one_record, $matches) == 0)
     {
       continue;
     }
     $href = 'http://' . $host_ . $matches[1];
         
-    $rc = preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches);
-    if ($rc == 0)
+    if (preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches) == 0)
     {
       continue;
     }

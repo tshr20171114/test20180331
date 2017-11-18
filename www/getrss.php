@@ -21,8 +21,6 @@ __HEREDOC__;
   }
   
   $buf = $html_;
-  // $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
-  // $buf = explode('<div id="video_list_2column" style="display:none;">', $buf, 2)[0];
   $buf = explode($words['101'], $buf, 2)[1];
   $buf = explode($words['102'], $buf, 2)[0];
 
@@ -49,7 +47,6 @@ __HEREDOC__;
     }
   }
 
-  // foreach(explode('<!--/video_list_renew-->', $buf) as $one_record) {
   foreach(explode($words['103'], $buf) as $one_record) {
     foreach($words_ng as $word) {
       if (strpos($one_record, $word) !== false) {
@@ -63,15 +60,12 @@ __HEREDOC__;
       }
     }
     
-    // if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0) {
     if (preg_match($words['104'], $one_record, $matches) == 0) {
       continue;
     }
     $time = $matches[1];
     
-    if (preg_match('/^0.:/', $time, $matches) == 1) {
-      continue;
-    }
+    if (preg_match('/^0.:/', $time, $matches) == 1) continue;
     
     if (preg_match('/^1[012]:/', $time, $matches) == 1) {
       continue;

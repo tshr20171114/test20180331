@@ -1,7 +1,6 @@
 <?php
 
-function f_parse($html_, $host_, $page_)
-{
+function f_parse($html_, $host_, $page_) {
   $buf = $html_;
   $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
   $buf = explode('<div id="video_list_2column" style="display:none;">', $buf, 2)[0];

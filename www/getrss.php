@@ -1,15 +1,30 @@
 <?php
 
 function f_parse($html_, $host_, $page_) {
-  $buf = $html_;
-  $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
-  $buf = explode('<div id="video_list_2column" style="display:none;">', $buf, 2)[0];
  
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
     "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
     $connection_info['user'],
     $connection_info['pass']);
+    
+  $sql = <<< __HEREDOC__
+SELECT M1.type
+      ,M1.word
+  FROM m_words M1
+ WHERE M1.type > 100
+__HEREDOC__;
+  
+  $words = array();
+  foreach ($pdo->query($sql) as $row) {
+    $words[(string)$row['type']] = $row['word'];
+  }
+  
+  $buf = $html_;
+  // $buf = explode('<div id="video_list_1column" style="display:block;">', $buf, 2)[1];
+  // $buf = explode('<div id="video_list_2column" style="display:none;">', $buf, 2)[0];
+  $buf = explode($words['101'], $buf, 2)[1];
+  $buf = explode($words['102'], $buf, 2)[0];
 
   $sql = <<< __HEREDOC__
 INSERT INTO t_contents

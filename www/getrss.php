@@ -66,14 +66,8 @@ __HEREDOC__;
     $time = $matches[1];
     
     if (preg_match('/^0.:/', $time, $matches) == 1) continue;
-    
-    if (preg_match('/^1[012]:/', $time, $matches) == 1) {
-      continue;
-    }
-    
-    if (preg_match('/^2[01]:/', $time, $matches) == 1) {
-      continue;
-    }
+    if (preg_match('/^1[012]:/', $time, $matches) == 1) continue;    
+    if (preg_match('/^2[01]:/', $time, $matches) == 1) continue;
     
     if (preg_match('/<img src="(.+?)\?/', $one_record, $matches) == 0) {
       continue;

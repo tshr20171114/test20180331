@@ -196,7 +196,7 @@ if ($count === 1) {
     $title = $row['title'];
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
-    $tag = explode('/', $uri)[5];
+    $tag = 'A';
     $items[] = "<item><title>${time} ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${tag}</description><pubDate></pubDate></item>";
   }
 

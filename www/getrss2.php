@@ -70,6 +70,7 @@ __HEREDOC__;
             ':b_time' => $time,
             ':b_page' => $page_
            ));
+    error_log((string)$rc);
   }
   
   $pdo = null;

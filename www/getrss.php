@@ -18,27 +18,22 @@ __HEREDOC__;
   $statement = $pdo->prepare($sql);
   
   $sql = <<< __HEREDOC__
-SELECT M1.word
+SELECT M1.type
+      ,M1.word
   FROM m_words M1
- WHERE M1.type = 2
-__HEREDOC__;
-  
-  $words_ng = array();
-  foreach ($pdo->query($sql) as $row) {
-    $words_ng[] = $row['word'];
-  }
-  
-  $sql = <<< __HEREDOC__
-SELECT M1.word
-  FROM m_words M1
- WHERE M1.type = 1
+ WHERE M1.type IN (1, 2)
 __HEREDOC__;
   
   $words_ok = array();
+  $words_ng = array();
   foreach ($pdo->query($sql) as $row) {
-    $words_ok[] = $row['word'];
+    if ($row['word'] == 1) {
+      $words_ok[] = $row['word'];
+    } else {
+      $words_ng[] = $row['word'];
+    }
   }
-    
+
   foreach(explode('<!--/video_list_renew-->', $buf) as $one_record) {
     foreach($words_ng as $word) {
       if (strpos($one_record, $word) !== false) {

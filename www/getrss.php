@@ -239,7 +239,7 @@ if ($count === 1) {
   $pdo = null;
   
   error_log('items : ' . count($items));
-  $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/item_count/';
+  $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $_SERVER['SERVER_NAME'] . '/';
   $context = array(
     'http' => array(
       'method' => 'POST',

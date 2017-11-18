@@ -49,7 +49,8 @@ __HEREDOC__;
     }
   }
 
-  foreach(explode('<!--/video_list_renew-->', $buf) as $one_record) {
+  // foreach(explode('<!--/video_list_renew-->', $buf) as $one_record) {
+  foreach(explode($words['103'], $buf) as $one_record) {
     foreach($words_ng as $word) {
       if (strpos($one_record, $word) !== false) {
         continue 2;
@@ -62,7 +63,8 @@ __HEREDOC__;
       }
     }
     
-    if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0) {
+    // if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0) {
+    if (preg_match($words['104'], $one_record, $matches) == 0) {
       continue;
     }
     $time = $matches[1];

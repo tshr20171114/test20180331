@@ -197,7 +197,7 @@ if ($count === 1) {
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
     $tag = explode('/', $uri)[4];
-    $items[] = "<item><title>${time} ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${tag}</description><pubDate></pubDate></item>";
+    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${tag}</description><pubDate></pubDate></item>";
   }
 
   header('Content-Type: application/xml; charset=UTF-8');

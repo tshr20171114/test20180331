@@ -25,8 +25,7 @@ SELECT M1.word
 __HEREDOC__;
   
   $words_ng = array();
-  foreach ($pdo->query($sql) as $row)
-  {
+  foreach ($pdo->query($sql) as $row) {
     $words_ng[] = $row['word'];
   }
   
@@ -37,64 +36,51 @@ SELECT M1.word
 __HEREDOC__;
   
   $words_ok = array();
-  foreach ($pdo->query($sql) as $row)
-  {
+  foreach ($pdo->query($sql) as $row) {
     $words_ok[] = $row['word'];
   }
     
-  foreach(explode('<!--/video_list_renew-->', $buf) as $one_record)
-  {
-    foreach($words_ng as $word)
-    {
-      if (strpos($one_record, $word) !== false)
-      {
+  foreach(explode('<!--/video_list_renew-->', $buf) as $one_record) {
+    foreach($words_ng as $word) {
+      if (strpos($one_record, $word) !== false) {
         continue 2;
       }
     }
  
-    foreach($words_ok as $word)
-    {
-      if (strpos($one_record, $word) === false)
-      {
+    foreach($words_ok as $word) {
+      if (strpos($one_record, $word) === false) {
         continue 2;
       }
     }
     
-    if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0)
-    {
+    if (preg_match('/<span class="video_time_renew">(.+?)<\/span>/', $one_record, $matches) == 0) {
       continue;
     }
     $time = $matches[1];
     
-    if (preg_match('/^0.:/', $time, $matches) == 1)
-    {
+    if (preg_match('/^0.:/', $time, $matches) == 1) {
       continue;
     }
     
-    if (preg_match('/^1[012]:/', $time, $matches) == 1)
-    {
+    if (preg_match('/^1[012]:/', $time, $matches) == 1) {
       continue;
     }
     
-    if (preg_match('/^2[01]:/', $time, $matches) == 1)
-    {
+    if (preg_match('/^2[01]:/', $time, $matches) == 1) {
       continue;
     }
     
-    if (preg_match('/<img src="(.+?)\?/', $one_record, $matches) == 0)
-    {
+    if (preg_match('/<img src="(.+?)\?/', $one_record, $matches) == 0) {
       continue;
     }
     $thumbnail = $matches[1];
         
-    if (preg_match('/<a href="(.+?)"/', $one_record, $matches) == 0)
-    {
+    if (preg_match('/<a href="(.+?)"/', $one_record, $matches) == 0) {
       continue;
     }
     $href = 'http://' . $host_ . $matches[1];
         
-    if (preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches) == 0)
-    {
+    if (preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches) == 0) {
       continue;
     }
     $title = $matches[1];
@@ -131,14 +117,12 @@ $count++;
 
 $target_url = getenv('SEARCH_URL');
 
-if ($count > $max_count)
-{
+if ($count > $max_count) {
   error_log("${pid} FINISH ${count}");
   return;
 }
 
-if ($count === 1)
-{
+if ($count === 1) {
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
     "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
@@ -151,16 +135,14 @@ if ($count === 1)
 }
 
 $urls = array();
-for($i = 0; $i < $per_count; $i++)
-{
+for($i = 0; $i < $per_count; $i++) {
   $urls[] = $target_url . (($count - 1) * $per_count + $i + 1);
 }
 $urls[] = $url . '?c=' . $count . '&u=' . $url;
 
 $mh = curl_multi_init();
 
-foreach($urls as $url)
-{
+foreach($urls as $url) {
   $ch = curl_init();
   curl_setopt_array($ch, array(
     CURLOPT_URL => $url,
@@ -170,30 +152,25 @@ foreach($urls as $url)
   curl_multi_add_handle($mh, $ch);
 }
 
-do
-{
+do {
   $stat = curl_multi_exec($mh, $running);
 } while ($stat === CURLM_CALL_MULTI_PERFORM);
 
-do switch (curl_multi_select($mh, 10))
-{
+do switch (curl_multi_select($mh, 10)) {
   case -1:
     usleep(10);
-    do
-    {
+    do {
       $stat = curl_multi_exec($mh, $running);
     } while ($stat === CURLM_CALL_MULTI_PERFORM);
     continue 2;
   case 0:
     continue 2;
   default:
-    do
-    {
+    do {
       $stat = curl_multi_exec($mh, $running);
     } while ($stat === CURLM_CALL_MULTI_PERFORM);
     
-    do if ($raised = curl_multi_info_read($mh, $remains))
-    {
+    do if ($raised = curl_multi_info_read($mh, $remains)) {
       $info = curl_getinfo($raised['handle']);
       $page = explode('=', parse_url($info[url], PHP_URL_QUERY), 2)[1];
       $host = parse_url($info[url], PHP_URL_HOST);
@@ -231,8 +208,7 @@ $xml_root_text = <<< __HEREDOC__
 </rss>
 __HEREDOC__;
 
-if ($count === 1)
-{  
+if ($count === 1) {  
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
     "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
@@ -240,8 +216,7 @@ if ($count === 1)
     $connection_info['pass']);
 
   $items = array();
-  foreach ($pdo->query($sql) as $row)
-  {
+  foreach ($pdo->query($sql) as $row) {
     $uri = $row['uri'];
     $title = $row['title'];
     $thumbnail = $row['thumbnail'];
@@ -266,9 +241,7 @@ if ($count === 1)
       ));
   $res = file_get_contents($url, false, stream_context_create($context));
   error_log($res);
-}
-else
-{
+} else {
   echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
 }
 

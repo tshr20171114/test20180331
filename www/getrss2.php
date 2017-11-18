@@ -60,8 +60,8 @@ __HEREDOC__;
     }
     $title = $matches[1];
         
-    error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
-    //error_log("${href} ${title}");
+    //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
+    error_log("${href} ${title}");
     
     $rc = $statement->execute(
       array(':b_uri' => $href,
@@ -70,7 +70,6 @@ __HEREDOC__;
             ':b_time' => $time,
             ':b_page' => $page_
            ));
-    error_log((string)$rc);
   }
   
   $pdo = null;

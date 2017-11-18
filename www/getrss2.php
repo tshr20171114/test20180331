@@ -58,7 +58,7 @@ __HEREDOC__;
     if (preg_match('/<a .+? title="(.+?)"/', $one_record, $matches) == 0) {
       continue;
     }
-    $title = htmlspecialchars_decode($matches[1]);
+    $title = htmlspecialchars($matches[1]);
         
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
     error_log("${href} ${title}");

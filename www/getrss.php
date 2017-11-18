@@ -40,7 +40,7 @@ __HEREDOC__;
   $words_ok = array();
   $words_ng = array();
   foreach ($pdo->query($sql) as $row) {
-    if ($row['word'] == 1) {
+    if ($row['type'] == 1) {
       $words_ok[] = $row['word'];
     } else {
       $words_ng[] = $row['word'];

@@ -118,6 +118,7 @@ $urls[] = $url . '?c=' . $count . '&u=' . $url;
 $mh = curl_multi_init();
 
 foreach($urls as $url) {
+  error_log("${pid} ${url}");
   $ch = curl_init();
   curl_setopt_array($ch, array(
     CURLOPT_URL => $url,

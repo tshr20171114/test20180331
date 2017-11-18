@@ -82,7 +82,7 @@ __HEREDOC__;
     if (preg_match('/<h3><.+?>(.+?)<\/a>/u', $one_record, $matches) == 0) {
       continue;
     }
-    $title = htmlspecialchars($matches[1]);
+    $title = htmlspecialchars_decode($matches[1]);
         
     //error_log("${time} ${title} ${href} ${thumbnail}");
     error_log("${href} ${title}");

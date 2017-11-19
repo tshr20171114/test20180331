@@ -63,7 +63,7 @@ __HEREDOC__;
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
     error_log("${href} ${title}");
     
-    $rc = $statement->execute(
+    $statement->execute(
       array(':b_uri' => $href,
             ':b_title' => $title,
             ':b_thumbnail' => $thumbnail,

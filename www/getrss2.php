@@ -156,8 +156,8 @@ do switch (curl_multi_select($mh, 10)) {
     
     do if ($raised = curl_multi_info_read($mh, $remains)) {
       $info = curl_getinfo($raised['handle']);
-      $page = explode('=', parse_url($info[url], PHP_URL_QUERY), 4)[3];
-      $host = parse_url($info[url], PHP_URL_HOST);
+      $page = explode('=', parse_url($info['url'], PHP_URL_QUERY), 4)[3];
+      $host = parse_url($info['url'], PHP_URL_HOST);
       $response = curl_multi_getcontent($raised['handle']);
       //error_log("${pid} ${query_string} " . strlen($response));
       //error_log($response);

@@ -34,7 +34,15 @@ __HEREDOC__;
 
     if (strpos($one_record, $words['204']) === false) {
       continue;
-    }   
+    }
+
+    if (strpos($one_record, $words['207']) === false) {
+      continue;
+    }
+
+    if (strpos($one_record, $words['206']) !== false) {
+      continue;
+    }
     
     if (preg_match($words['205'], $one_record, $matches) == 0) {
       continue;

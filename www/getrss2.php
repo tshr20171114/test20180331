@@ -207,7 +207,7 @@ if ($count === 1) {
     $time = $row['time'];
     // $tag = explode('/', $uri)[4];
     $md5_hash = md5_file($thumbnail);
-    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${md5_hash}</description><pubDate></pubDate></item>";
+    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${md5_hash}</description><pubDate></pubDate><category>${md5_hash}</category></item>";
     error_log($md5_hash . ' ' . $thumbnail);
   }
 

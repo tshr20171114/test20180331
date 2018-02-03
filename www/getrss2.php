@@ -26,7 +26,7 @@ __HEREDOC__;
 
   $sql = <<< __HEREDOC__
 INSERT INTO t_contents2
-( uri, title, thumbnail, time, page ) VALUES ( :b_uri, :b_title, :b_thumbnail, :b_time, :b_page )
+( uri, title, thumbnail, thumbnail_hash, time, page ) VALUES ( :b_uri, :b_title, :b_thumbnail, :b_thumbnail_hash, :b_time, :b_page )
 __HEREDOC__;
   $statement = $pdo->prepare($sql);
 
@@ -67,14 +67,17 @@ __HEREDOC__;
       continue;
     }
     $title = htmlspecialchars($matches[1]);
+    
+    $md5_hash = md5_file($thumbnail);
         
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
     error_log("${href} ${title}");
-    
+   
     $statement->execute(
       array(':b_uri' => $href,
             ':b_title' => $title,
             ':b_thumbnail' => $thumbnail,
+            ':b_thumbnail_hash' => $md5_hash,
             ':b_time' => $time,
             ':b_page' => $page_
            ));
@@ -173,6 +176,7 @@ $sql = <<< __HEREDOC__
 SELECT T1.uri
       ,T1.title
       ,T1.thumbnail
+      ,T1.thumbnail_hash
       ,T1.time
   FROM t_contents2 T1
  ORDER BY CAST(T1.page AS integer)
@@ -206,9 +210,9 @@ if ($count === 1) {
     $thumbnail = $row['thumbnail'];
     $time = $row['time'];
     // $tag = explode('/', $uri)[4];
-    $md5_hash = md5_file($thumbnail);
-    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${md5_hash}</description><pubDate></pubDate><category>${md5_hash}</category></item>";
-    error_log($md5_hash . ' ' . $thumbnail);
+    $thumbnail_hash = $row['thumbnail_hash'];
+    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${thumbnail_hash}</description><pubDate></pubDate><category>${thumbnail_hash}</category></item>";
+    error_log($thumbnail_hash . ' ' . $thumbnail);
   }
 
   header('Content-Type: application/xml; charset=UTF-8');

@@ -2,6 +2,8 @@
 
 function f_parse($html_, $host_, $page_) {
  
+  $pid = getmypid();
+ 
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(
     "pgsql:host=${connection_info['host']};dbname=" . substr($connection_info['path'], 1),
@@ -71,7 +73,7 @@ __HEREDOC__;
     $md5_hash = md5_file($thumbnail);
         
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
-    error_log("${href} ${title}");
+    error_log("${pid} ${href} ${title}");
    
     $statement->execute(
       array(':b_uri' => $href,

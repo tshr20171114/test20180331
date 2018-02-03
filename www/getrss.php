@@ -228,18 +228,7 @@ if ($count === 1) {
   echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
   $pdo = null;
   
-  error_log('items : ' . count($items));
-  $url = 'https://logs-01.loggly.com/inputs/' . getenv('LOGGLY_TOKEN') . '/tag/' . $_SERVER['SERVER_NAME'] . '/';
-  $context = array(
-    'http' => array(
-      'method' => 'POST',
-      'header' => array(
-        'Content-Type: text/plain'
-        ),
-      'content' => 'items : ' . count($items) . ' ' . $_SERVER['REQUEST_URI']
-      ));
-  $res = file_get_contents($url, false, stream_context_create($context));
-  error_log($res);
+  error_log('items : ' . count($items) . ' ' . $_SERVER['REQUEST_URI']);
 } else {
   echo '<HTML><HEAD><TITLE>' . ($start_time - time()) . '</TITLE></HEAD><BODY>' . time() . '</BODY></HTML>';
 }

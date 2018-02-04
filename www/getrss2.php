@@ -32,6 +32,11 @@ INSERT INTO t_contents2
 __HEREDOC__;
   $statement = $pdo->prepare($sql);
 
+  $sql = <<<  __HEREDOC__
+SELECT thumbnail_hash FROM t_file_hash WHERE thumbnail = :b_thumbnail
+__HEREDOC__
+  $statement_select = $pdo->prepare($sql);
+
   foreach(explode($words['203'], $buf) as $one_record) {
 
     if (strpos($one_record, $words['204']) === false) {
@@ -76,13 +81,14 @@ __HEREDOC__;
     error_log("${pid} ${href} ${title}");
    
     $statement->execute(
-      array(':b_uri' => $href,
-            ':b_title' => $title,
-            ':b_thumbnail' => $thumbnail,
-            ':b_thumbnail_hash' => $md5_hash,
-            ':b_time' => $time,
-            ':b_page' => $page_
-           ));
+      [
+       ':b_uri' => $href,
+       ':b_title' => $title,
+       ':b_thumbnail' => $thumbnail,
+       ':b_thumbnail_hash' => $md5_hash,
+       ':b_time' => $time,
+       ':b_page' => $page_
+      ]);
   }
   
   $pdo = null;

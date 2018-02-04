@@ -36,7 +36,7 @@ __HEREDOC__;
 SELECT thumbnail_hash
   FROM t_file_hash
  WHERE thumbnail = :b_thumbnail
-__HEREDOC__
+__HEREDOC__;
   $statement_select = $pdo->prepare($sql);
 
   $sql = <<< __HEREDOC__

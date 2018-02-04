@@ -97,6 +97,7 @@ __HEREDOC__;
           ':b_thumbnail_hash' => $thumbnail_hash,
         ]);          
     } else {
+      error_log("${pid} hash hit");
       $thumbnail_hash = $result['thumbnail_hash'];
     }
         

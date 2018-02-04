@@ -33,9 +33,17 @@ __HEREDOC__;
   $statement = $pdo->prepare($sql);
 
   $sql = <<<  __HEREDOC__
-SELECT thumbnail_hash FROM t_file_hash WHERE thumbnail = :b_thumbnail
+SELECT thumbnail_hash
+  FROM t_file_hash
+ WHERE thumbnail = :b_thumbnail
 __HEREDOC__
   $statement_select = $pdo->prepare($sql);
+
+  $sql = <<< __HEREDOC__
+INSERT INTO t_file_hash
+( thumbnail, thumbnail_hash ) VALUES ( :b_thumbnail, :b_thumbnail_hash )
+__HEREDOC__;
+  $statement_insert = $pdo->prepare($sql);
 
   foreach(explode($words['203'], $buf) as $one_record) {
 
@@ -75,19 +83,34 @@ __HEREDOC__
     }
     $title = htmlspecialchars($matches[1]);
     
-    $md5_hash = md5_file($thumbnail);
+    $statement_select->execute(
+      [
+        ':b_thumbnail' => $thumbnail,
+      ]);
+    $result = $statement_select->fetch();
+    
+    if ($result === FALSE) {
+      $thumbnail_hash = md5_file($thumbnail);
+      $statement_insert->execute(
+        [
+          ':b_thumbnail' => $thumbnail,
+          ':b_thumbnail_hash' => $thumbnail_hash,
+        ]);          
+    } else {
+      $thumbnail_hash = $result['thumbnail_hash'];
+    }
         
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
     error_log("${pid} ${href} ${title}");
    
     $statement->execute(
       [
-       ':b_uri' => $href,
-       ':b_title' => $title,
-       ':b_thumbnail' => $thumbnail,
-       ':b_thumbnail_hash' => $md5_hash,
-       ':b_time' => $time,
-       ':b_page' => $page_
+        ':b_uri' => $href,
+        ':b_title' => $title,
+        ':b_thumbnail' => $thumbnail,
+        ':b_thumbnail_hash' => $thumbnail_hash,
+        ':b_time' => $time,
+        ':b_page' => $page_
       ]);
   }
   

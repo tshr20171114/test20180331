@@ -228,6 +228,7 @@ $xml_root_text = <<< __HEREDOC__
 </rss>
 __HEREDOC__;
 
+$base_url = getenv('BASE_URL');
 if ($count === 1) {  
   $connection_info = parse_url(getenv('DATABASE_URL'));
   $pdo = new PDO(

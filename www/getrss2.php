@@ -243,7 +243,7 @@ if ($count === 1) {
     $time = $row['time'];
     // $tag = explode('/', $uri)[4];
     $thumbnail_hash = $row['thumbnail_hash'];
-    $items[] = "<item><title>${time}min ${title}</title><link>${uri}</link><description>&lt;img src='${thumbnail}'&gt;${thumbnail_hash}</description><pubDate></pubDate><category>${thumbnail_hash}</category></item>";
+    $items[] = "<item><title>${time}min ${title}</title><link>${base_url}${uri}</link><description>&lt;img src='${thumbnail}'&gt;${thumbnail_hash}</description><pubDate></pubDate><category>${thumbnail_hash}</category></item>";
     error_log($thumbnail_hash . ' ' . $thumbnail);
   }
 

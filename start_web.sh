@@ -38,6 +38,12 @@ postgres_dbname=$(echo ${DATABASE_URL} | awk -F'/' '{print $NF}')
 export PGPASSWORD=${postgres_password}
 
 psql -U ${postgres_user} -d ${postgres_dbname} -h ${postgres_server} > /tmp/sql_result.txt << __HEREDOC__
+SELECT COUNT('X')
+  FROM t_file_hash
+__HEREDOC__
+cat /tmp/sql_result.txt
+
+psql -U ${postgres_user} -d ${postgres_dbname} -h ${postgres_server} > /tmp/sql_result.txt << __HEREDOC__
 DELETE
   FROM t_file_hash
  WHERE create_time < localtimestamp - interval '3 days'

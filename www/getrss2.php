@@ -37,13 +37,13 @@ SELECT thumbnail_hash
   FROM t_file_hash
  WHERE thumbnail = :b_thumbnail
 __HEREDOC__;
-  // $statement_select = $pdo->prepare($sql);
+  $statement_select = $pdo->prepare($sql);
 
   $sql = <<< __HEREDOC__
 INSERT INTO t_file_hash
 ( thumbnail, thumbnail_hash ) VALUES ( :b_thumbnail, :b_thumbnail_hash )
 __HEREDOC__;
-  // $statement_insert = $pdo->prepare($sql);
+  $statement_insert = $pdo->prepare($sql);
 
   foreach(explode($words['203'], $buf) as $one_record) {
 
@@ -83,7 +83,6 @@ __HEREDOC__;
     }
     $title = htmlspecialchars($matches[1]);
     
-    /*
     $statement_select->execute(
       [
         ':b_thumbnail' => $thumbnail,
@@ -101,8 +100,6 @@ __HEREDOC__;
       error_log("${pid} hash hit");
       $thumbnail_hash = $result['thumbnail_hash'];
     }
-    */
-    $thumbnail_hash = md5_file($thumbnail);
     
     //error_log("${time} ${title} ${href} ${thumbnail} ${page_}");
     error_log("${pid} ${href} ${title}");

@@ -31,4 +31,6 @@ cd guetzli
 
 make -j4
 
+ls -lang bin/release
+
 date

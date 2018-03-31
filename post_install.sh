@@ -19,6 +19,8 @@ cd /tmp
 wget https://osdn.jp/projects/nkf/downloads/64158/nkf-2.1.4.tar.gz
 tar xf nkf-2.1.4.tar.gz
 cd nkf-2.1.4
-make -j4
+make
+
+ls -lang
 
 date

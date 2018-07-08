@@ -25,4 +25,9 @@ make install
 
 ls -lang /tmp/usr
 
+tree /tmp/usr
+
+phpize
+
+
 date

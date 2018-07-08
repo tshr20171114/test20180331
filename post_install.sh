@@ -24,14 +24,9 @@ make -j4
 make install
 
 cd php/libpuzzle
-
+phpize
 ls -lang
 
 ls -lang /tmp/usr
-
-tree /tmp/usr
-
-phpize
-
 
 date

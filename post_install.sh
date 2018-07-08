@@ -21,7 +21,7 @@ cd libpuzzle-0.11
 
 make -j4
 
-meake install
+make install
 
 ls -lang /tmp/usr
 

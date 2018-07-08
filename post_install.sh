@@ -23,6 +23,10 @@ make -j4
 
 make install
 
+cd php/libpuzzle
+
+ls -lang
+
 ls -lang /tmp/usr
 
 tree /tmp/usr

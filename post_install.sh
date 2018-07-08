@@ -4,14 +4,6 @@ set -x
 
 date
 
-tar xf phpPgAdmin-5.1.tar.bz2
-
-mv phpPgAdmin-5.1 www/phppgadmin
-
-rm -f phpPgAdmin-5.1.tar.bz2
-
-cp config.inc.php www/phppgadmin/conf/config.inc.php
-
 chmod 755 ./start_web.sh
 
 cd /tmp
@@ -23,8 +15,12 @@ tar xf libpuzzle-0.11.tar.bz2
 cd libpuzzle-0.11
 
 ./configure --help
-./configure
+./configure --prefix=/tmp/usr
 
 make -j4
+
+meake install
+
+ls -lang /tmp/usr
 
 date

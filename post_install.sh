@@ -25,8 +25,10 @@ make install
 
 cd php/libpuzzle
 phpize
-ls -lang
-
-ls -lang /tmp/usr
+./configure --help
+./configure --with-libpuzzle=/tmp/usr
+make clean
+make
+make instal
 
 date

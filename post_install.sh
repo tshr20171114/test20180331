@@ -10,7 +10,7 @@ cd /tmp
 
 mkdir /tmp/usr
 
-wget http://download.pureftpd.org/pub/pure-ftpd/misc/libpuzzle/releases/libpuzzle-0.11.tar.bz2
+wget https://download.pureftpd.org/pub/pure-ftpd/misc/libpuzzle/releases/libpuzzle-0.11.tar.bz2
 
 tar xf libpuzzle-0.11.tar.bz2
 

@@ -6,6 +6,8 @@ date
 
 chmod 755 ./start_web.sh
 
+exit
+
 cd /tmp
 
 mkdir /tmp/usr

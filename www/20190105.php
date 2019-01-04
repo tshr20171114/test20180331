@@ -19,3 +19,4 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 error_log('HTTP STATUS CODE : ' . $http_code);
 curl_close($ch);
 
+error_log($res);

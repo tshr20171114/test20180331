@@ -28,4 +28,8 @@ $tmp1 = explode('<div class="pagination3">', $tmp1[1]);
 
 $list = explode('</li>', $tmp1[0]);
 
-error_log(print_r($list, true));
+// error_log(print_r($list, true));
+
+foreach($list as $item) {
+
+}

@@ -37,12 +37,14 @@ foreach($list as $item) {
   $url_img = $match[1];
   
   $rc = preg_match('/<var class="duration">(.+?)</s', $item, $match);
-  error_log(print_r($match, true));
+  // error_log(print_r($match, true));
   $duration = $match[1];
   
   $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
-  error_log(print_r($match, true));
+  // error_log(print_r($match, true));
   $link = $match[1];
   $title = $match[2];
-  break;
+  $list2[] = $duration , ' ' . $title;
 }
+
+error_log(print_r($list2, true));

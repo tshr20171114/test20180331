@@ -23,4 +23,4 @@ curl_close($ch);
 
 $tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res);
 
-error_log(count($tmp1));
+error_log($tmp1[1]);

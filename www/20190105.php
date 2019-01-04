@@ -53,8 +53,6 @@ foreach($list as $item) {
   $items[] = "<item><title>${time}min ${title}</title><link>${url}${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
 }
 
-error_log(print_r($list2, true));
-
 $xml_root_text = <<< __HEREDOC__
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">

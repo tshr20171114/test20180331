@@ -1,28 +1,51 @@
 <?php
 
-$options = [
-        CURLOPT_URL => $url,
-        CURLOPT_USERAGENT => getenv('USER_AGENT'),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_FOLLOWLOCATION => 1,
-        CURLOPT_MAXREDIRS => 3,
-        CURLOPT_SSL_FALSESTART => true,
-        ];
-        
+$mh = curl_multi_init();
+
 for ($i = 0; $i < 10; $i++) {
   $url = getenv('URL_010') . ($i + 1);
   error_log($url);
 
   $ch = curl_init();
+  
+  $options = [
+          CURLOPT_URL => $url,
+          CURLOPT_USERAGENT => getenv('USER_AGENT'),
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_FOLLOWLOCATION => 1,
+          CURLOPT_MAXREDIRS => 3,
+          CURLOPT_SSL_FALSESTART => true,
+  ];
   curl_setopt_array($ch, $options);
+  
+  /*
   $res = curl_exec($ch);
   $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   error_log('HTTP STATUS CODE : ' . $http_code);
   curl_close($ch);
-
+  */
+  curl_multi_add_handle($mh, $ch);
+  $list_ch[$url] = $ch;
+  
   // error_log($res);
-  $list_res[] = $res;
+  // $list_res[] = $res;
+}
+
+$active = null;
+$rc = curl_multi_exec($mh, $active);
+
+while ($active && $rc == CURLM_OK) {
+  if (curl_multi_select($mh) == -1) {
+      usleep(1);
+  }
+  $rc = curl_multi_exec($mh, $active);
+}
+
+foreach ($list_ch as $url => $ch) {
+  $res = curl_getinfo($ch);
+  error_log($res['http_code'] . " ${url}");
+  $list_res[] = curl_multi_getcontent($ch);
 }
 
 foreach ($list_res as $res) {

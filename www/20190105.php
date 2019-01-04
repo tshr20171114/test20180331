@@ -44,7 +44,7 @@ foreach($list as $item) {
   // error_log(print_r($match, true));
   $link = $match[1];
   $title = $match[2];
-  $list2[] = $duration , ' ' . $title;
+  $list2[] = $duration . ' ' . $title;
 }
 
 error_log(print_r($list2, true));

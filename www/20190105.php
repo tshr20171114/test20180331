@@ -39,10 +39,10 @@ foreach($list as $item) {
   // error_log(print_r($match, true));
   $thumbnail = $match[1];
   
-  $rc = preg_match('/<var class="duration">(.+?)</s', $item, $match);
+  $rc = preg_match('/<var class="duration">(.+?):/s', $item, $match);
   // error_log(print_r($match, true));
-  $time = $match[1];
-  if ((int)explode(':', $time)[0] < 50) {
+  $time = (int)$match[1];
+  if ($time < 50) {
     continue;
   }
   
@@ -57,7 +57,7 @@ $xml_root_text = <<< __HEREDOC__
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>rss2</title>
+    <title>rss3</title>
     <link>http://www.yahoo.co.jp</link>
     <description>none</description>
     <language>ja</language>

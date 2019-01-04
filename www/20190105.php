@@ -1,8 +1,11 @@
 <?php
 
+$time_start = time();
+error_log("${pid} START ${requesturi} " . date('Y/m/d H:i:s', $time_start));
+
 $mh = curl_multi_init();
 
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 20; $i++) {
   $url = getenv('URL_010') . ($i + 1);
   error_log($url);
 
@@ -98,4 +101,7 @@ __HEREDOC__;
 
 header('Content-Type: application/xml; charset=UTF-8');
 echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
-  
+
+$time_finish = time();
+error_log("${pid} FINISH " . date('s', $time_finish - $time_start) . 's');
+

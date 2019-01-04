@@ -37,12 +37,12 @@ foreach($list as $item) {
     continue;
   }
   // error_log(print_r($match, true));
-  $url_img = $match[1];
+  $thumbnail = $match[1];
   
   $rc = preg_match('/<var class="duration">(.+?)</s', $item, $match);
   // error_log(print_r($match, true));
-  $duration = $match[1];
-  if ((int)explode(':', $duration)[0] < 50) {
+  $time = $match[1];
+  if ((int)explode(':', $time)[0] < 50) {
     continue;
   }
   
@@ -50,7 +50,24 @@ foreach($list as $item) {
   // error_log(print_r($match, true));
   $link = $match[1];
   $title = $match[2];
-  $list2[] = $duration . ' ' . $title;
+  $items[] = "<item><title>${time}min ${title}</title><link>${url}${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
 }
 
 error_log(print_r($list2, true));
+
+$xml_root_text = <<< __HEREDOC__
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>rss2</title>
+    <link>http://www.yahoo.co.jp</link>
+    <description>none</description>
+    <language>ja</language>
+    __ITEMS__
+  </channel>
+</rss>
+__HEREDOC__;
+
+header('Content-Type: application/xml; charset=UTF-8');
+echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
+  

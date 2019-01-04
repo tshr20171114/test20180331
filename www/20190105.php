@@ -33,6 +33,16 @@ $list = explode('</li>', $tmp1[0]);
 foreach($list as $item) {
   // error_log($item);
   $rc = preg_match('/data-thumb_url = "(.+?)"/s', $item, $match);
+  // error_log(print_r($match, true));
+  $url_img = $match[1];
+  
+  $rc = preg_match('/<var class="duration">(.+?)</s', $item, $match);
   error_log(print_r($match, true));
+  $duration = $match[1];
+  
+  $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"</s', $item, $match);
+  error_log(print_r($match, true));
+  $link = $match[1];
+  $title = $match[2];
   break;
 }

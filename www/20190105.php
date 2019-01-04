@@ -21,6 +21,6 @@ curl_close($ch);
 
 // error_log($res);
 
-$tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res);
+$tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res, 2);
 
 error_log($tmp1[1]);

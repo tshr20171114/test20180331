@@ -19,4 +19,8 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 error_log('HTTP STATUS CODE : ' . $http_code);
 curl_close($ch);
 
-error_log($res);
+// error_log($res);
+
+$tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res);
+
+error_log(count($tmp1));

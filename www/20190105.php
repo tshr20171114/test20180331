@@ -1,6 +1,8 @@
 <?php
 
-$url = getenv('URL_010');
+for ($i = 0; $i < 3; $i++) {
+$url = getenv('URL_010') . ($i + 1);
+error_log($url);
 
 $options = [
         CURLOPT_URL => $url,
@@ -20,7 +22,10 @@ error_log('HTTP STATUS CODE : ' . $http_code);
 curl_close($ch);
 
 // error_log($res);
+$list_res[] = $res;
+}
 
+foreach ($list_res as $res) {
 $tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res, 2);
 $tmp1 = explode('<div class="pagination3">', $tmp1[1]);
 
@@ -30,7 +35,7 @@ $list = explode('</li>', $tmp1[0]);
 
 // error_log(print_r($list, true));
 
-foreach($list as $item) {
+foreach ($list as $item) {
   // error_log($item);
   $rc = preg_match('/data-thumb_url = "(.+?)"/s', $item, $match);
   if ($rc === 0) {
@@ -52,6 +57,7 @@ foreach($list as $item) {
   $link = $url_parts['scheme'] . '://' . $url_parts['host'] . $match[1];
   $title = $match[2];
   $items[] = "<item><title>${time}min ${title}</title><link>${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
+}
 }
 
 $xml_root_text = <<< __HEREDOC__

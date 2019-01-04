@@ -31,5 +31,8 @@ $list = explode('</li>', $tmp1[0]);
 // error_log(print_r($list, true));
 
 foreach($list as $item) {
-
+  // error_log($item);
+  $rc = preg_match('/data-thumb_url = "(.+?)"/s', $item, $match);
+  error_log(print_r($match, true));
+  break;
 }

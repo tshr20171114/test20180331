@@ -40,7 +40,7 @@ foreach($list as $item) {
   error_log(print_r($match, true));
   $duration = $match[1];
   
-  $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"</s', $item, $match);
+  $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
   error_log(print_r($match, true));
   $link = $match[1];
   $title = $match[2];

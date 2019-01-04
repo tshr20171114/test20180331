@@ -48,9 +48,10 @@ foreach($list as $item) {
   
   $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
   // error_log(print_r($match, true));
-  $link = $match[1];
+  $url_parts = parse_url($url);
+  $link = $url_parts['scheme'] . '://' . $url_parts['host'] . $match[1];
   $title = $match[2];
-  $items[] = "<item><title>${time}min ${title}</title><link>${url}${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
+  $items[] = "<item><title>${time}min ${title}</title><link>${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
 }
 
 $xml_root_text = <<< __HEREDOC__

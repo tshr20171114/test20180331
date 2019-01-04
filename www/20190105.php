@@ -1,5 +1,7 @@
 <?php
 
+$url = getenv('URL_010');
+
 $options = [
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => getenv('USER_AGENT'),

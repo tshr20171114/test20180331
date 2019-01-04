@@ -42,6 +42,9 @@ foreach($list as $item) {
   $rc = preg_match('/<var class="duration">(.+?)</s', $item, $match);
   // error_log(print_r($match, true));
   $duration = $match[1];
+  if ((int)explode(':', $duration)[0] < 50) {
+    continue;
+  }
   
   $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
   // error_log(print_r($match, true));

@@ -1,9 +1,5 @@
 <?php
 
-for ($i = 0; $i < 10; $i++) {
-$url = getenv('URL_010') . ($i + 1);
-error_log($url);
-
 $options = [
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => getenv('USER_AGENT'),
@@ -13,51 +9,55 @@ $options = [
         CURLOPT_MAXREDIRS => 3,
         CURLOPT_SSL_FALSESTART => true,
         ];
+        
+for ($i = 0; $i < 10; $i++) {
+  $url = getenv('URL_010') . ($i + 1);
+  error_log($url);
 
-$ch = curl_init();
-curl_setopt_array($ch, $options);
-$res = curl_exec($ch);
-$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-error_log('HTTP STATUS CODE : ' . $http_code);
-curl_close($ch);
+  $ch = curl_init();
+  curl_setopt_array($ch, $options);
+  $res = curl_exec($ch);
+  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  error_log('HTTP STATUS CODE : ' . $http_code);
+  curl_close($ch);
 
-// error_log($res);
-$list_res[] = $res;
+  // error_log($res);
+  $list_res[] = $res;
 }
 
 foreach ($list_res as $res) {
-$tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res, 2);
-$tmp1 = explode('<div class="pagination3">', $tmp1[1]);
+  $tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res, 2);
+  $tmp1 = explode('<div class="pagination3">', $tmp1[1]);
 
-// error_log($tmp1[0]);
+  // error_log($tmp1[0]);
 
-$list = explode('</li>', $tmp1[0]);
+  $list = explode('</li>', $tmp1[0]);
 
-// error_log(print_r($list, true));
+  // error_log(print_r($list, true));
 
-foreach ($list as $item) {
-  // error_log($item);
-  $rc = preg_match('/data-thumb_url = "(.+?)"/s', $item, $match);
-  if ($rc === 0) {
-    continue;
+  foreach ($list as $item) {
+    // error_log($item);
+    $rc = preg_match('/data-thumb_url = "(.+?)"/s', $item, $match);
+    if ($rc === 0) {
+      continue;
+    }
+    // error_log(print_r($match, true));
+    $thumbnail = $match[1];
+
+    $rc = preg_match('/<var class="duration">(.+?):/s', $item, $match);
+    // error_log(print_r($match, true));
+    $time = (int)$match[1];
+    if ($time < 50) {
+      continue;
+    }
+
+    $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
+    // error_log(print_r($match, true));
+    $url_parts = parse_url($url);
+    $link = $url_parts['scheme'] . '://' . $url_parts['host'] . $match[1];
+    $title = $match[2];
+    $items[] = "<item><title>${time}min ${title}</title><link>${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
   }
-  // error_log(print_r($match, true));
-  $thumbnail = $match[1];
-  
-  $rc = preg_match('/<var class="duration">(.+?):/s', $item, $match);
-  // error_log(print_r($match, true));
-  $time = (int)$match[1];
-  if ($time < 50) {
-    continue;
-  }
-  
-  $rc = preg_match('/<a href="(.+?)".+?title="(.+?)"/s', $item, $match);
-  // error_log(print_r($match, true));
-  $url_parts = parse_url($url);
-  $link = $url_parts['scheme'] . '://' . $url_parts['host'] . $match[1];
-  $title = $match[2];
-  $items[] = "<item><title>${time}min ${title}</title><link>${link}</link><description>&lt;img src='${thumbnail}'&gt;</description><pubDate/></item>";
-}
 }
 
 $xml_root_text = <<< __HEREDOC__

@@ -24,4 +24,8 @@ curl_close($ch);
 $tmp1 = explode('<div class="innerHeaderSubMenu langTextSubMenu">', $res, 2);
 $tmp1 = explode('<div class="pagination3">', $tmp1[1]);
 
-error_log($tmp1[0]);
+// error_log($tmp1[0]);
+
+$list = explode('</li>', $tmp1[0]);
+
+error_log(print_r($list, true));

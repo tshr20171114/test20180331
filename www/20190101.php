@@ -5,7 +5,7 @@ $rc = ftp_login($ftp_link_id, getenv('Test02'), getenv('Test03'));
 
 error_log($rc);
 
-$rc = ftp_rawlist($ftp_link_id, './');
+$rc = ftp_nlist($ftp_link_id, '.');
 
 error_log(print_r($rc, true));
 

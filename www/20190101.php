@@ -13,7 +13,7 @@ $rc = ftp_nlist($ftp_link_id, '.');
 
 error_log(print_r($rc, true));
 
-//$rc = ftp_put($ftp_link_id, '20190102.php', '20190101.php', FTP_ASCII);
+$rc = ftp_put($ftp_link_id, '20190101.php', '20190101.php', FTP_ASCII);
 
 error_log($rc);
 

@@ -22,17 +22,8 @@ for ($i = 0; $i < 20; $i++) {
   ];
   curl_setopt_array($ch, $options);
   
-  /*
-  $res = curl_exec($ch);
-  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  error_log('HTTP STATUS CODE : ' . $http_code);
-  curl_close($ch);
-  */
   curl_multi_add_handle($mh, $ch);
   $list_ch[$url] = $ch;
-  
-  // error_log($res);
-  // $list_res[] = $res;
 }
 
 $active = null;
@@ -99,10 +90,9 @@ $xml_root_text = <<< __HEREDOC__
 </rss>
 __HEREDOC__;
 
-// header('Content-Type: application/xml; charset=UTF-8');
-// echo str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text);
-
 file_put_contents('/tmp/rss.xml', str_replace('__ITEMS__', implode("\r\n", $items), $xml_root_text));
+$rc = filesize('/tmp/rss.xml');
+error_log('file size : ' . $rc);
 
 $ftp_link_id = ftp_connect(getenv('Test01'));
 $rc = ftp_login($ftp_link_id, getenv('Test02'), getenv('Test03'));

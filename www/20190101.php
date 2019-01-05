@@ -5,7 +5,7 @@ $rc = ftp_login($ftp_link_id, getenv('Test02'), getenv('Test03'));
 
 error_log($rc);
 
-$rc = ftp_put($ftp_link_id, '20190101.php', '20190101.php', FTP_ASCII);
+$rc = ftp_put($ftp_link_id, '20190102.php', '20190101.php', FTP_ASCII);
 
 error_log($rc);
 

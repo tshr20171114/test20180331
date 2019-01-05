@@ -5,6 +5,10 @@ $rc = ftp_login($ftp_link_id, getenv('Test02'), getenv('Test03'));
 
 error_log($rc);
 
+$rc = ftp_pasv($ftp_link_id, true);
+
+error_log($rc);
+
 $rc = ftp_nlist($ftp_link_id, '.');
 
 error_log(print_r($rc, true));

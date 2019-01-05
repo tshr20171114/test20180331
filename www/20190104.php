@@ -1,7 +1,7 @@
 <?php
 
 $time_start = time();
-error_log("${pid} START ${requesturi} " . date('Y/m/d H:i:s', $time_start));
+error_log("START ${requesturi} " . date('Y/m/d H:i:s', $time_start));
 
 $mh = curl_multi_init();
 

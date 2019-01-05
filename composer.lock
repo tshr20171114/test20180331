@@ -1,24 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa739a2ead1c447828a7a9d13d4dbf95",
+    "content-hash": "11ab050da828e82d16a10081cb8cc5f2",
     "packages": [],
     "packages-dev": [
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v126",
+            "version": "v148",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "8288ddb4b717019f5e39db384e3a9a5b41d73e93"
+                "reference": "d331bfb9251d8a091d3a0d29e25ffcdb801577e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/8288ddb4b717019f5e39db384e3a9a5b41d73e93",
-                "reference": "8288ddb4b717019f5e39db384e3a9a5b41d73e93",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/d331bfb9251d8a091d3a0d29e25ffcdb801577e1",
+                "reference": "d331bfb9251d8a091d3a0d29e25ffcdb801577e1",
                 "shasum": ""
             },
             "bin": [
@@ -49,7 +49,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2017-10-28T00:17:41+00:00"
+            "time": "2018-12-20T21:53:40+00:00"
         }
     ],
     "aliases": [],
